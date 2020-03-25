@@ -21,5 +21,6 @@ namespace Projet1_ASP.Models
         public string prenom { get; set; }
         public string email { get; set; }
         public string password { get; set; }
+        public int nbr_grp { get; set; }
     }
 }

@@ -6,23 +6,17 @@ using System.Web.Mvc;
 
 namespace Projet1_ASP.Controllers
 {
-    public class TestController : Controller
+    public class EtudiantController : Controller
     {
-        // GET: Test
-        public ActionResult Index()
+
+        public ActionResult Connexion()
         {
             return View();
         }
 
-        public ActionResult Page2()
+        public ActionResult Inscription()
         {
             return View();
         }
-
-        public ActionResult Encadrant()
-        {
-            return View();
-        }
-
     }
 }

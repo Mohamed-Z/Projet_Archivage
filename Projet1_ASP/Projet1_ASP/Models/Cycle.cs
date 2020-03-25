@@ -9,10 +9,12 @@ namespace Projet1_ASP.Models
     public class Cycle
     {
         public virtual ICollection<Etudiant> etudiants { get; set; }
+        public virtual ICollection<Niveau> niveaux { get; set; }
 
         public Cycle()
         {
             this.etudiants = new HashSet<Etudiant>();
+            this.niveaux = new HashSet<Niveau>();
         }
 
         [Key]

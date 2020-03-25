@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -18,5 +19,9 @@ namespace Projet1_ASP.Models
         [Key]
         public int id_Niveau { get; set; }
         public string nom_Niveau { get; set; }
+
+        [ForeignKey("Cycle")]
+        public Nullable<int> code_cyc { get; set; }
+        public virtual Cycle Cycle { get; set; }
     }
 }

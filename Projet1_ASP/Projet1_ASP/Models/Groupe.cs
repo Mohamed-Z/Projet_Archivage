@@ -9,11 +9,11 @@ namespace Projet1_ASP.Models
 {
     public class Groupe
     {
-        public virtual ICollection<Etudiant> etudiants { get; set; }
+        public virtual ICollection<GroupeMembre> GroupeMembres { get; set; }
 
         public Groupe()
         {
-            this.etudiants = new HashSet<Etudiant>();
+            this.GroupeMembres = new HashSet<GroupeMembre>();
         }
 
         [Key]

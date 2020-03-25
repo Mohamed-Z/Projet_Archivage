@@ -9,7 +9,15 @@ namespace Projet1_ASP.Models
 {
     public class Etudiant
     {
+        public virtual ICollection<GroupeMembre> GroupeMembres { get; set; }
+
+        public Etudiant()
+        {
+            this.GroupeMembres = new HashSet<GroupeMembre>();
+        }
+
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int cne { get; set; }
         public string nom { get; set; }
         public string prenom { get; set; }
@@ -19,9 +27,6 @@ namespace Projet1_ASP.Models
 
         [ForeignKey("Filiere")]
         public Nullable<int> id_fil { get; set; }
-
-        [ForeignKey("Groupe")]
-        public Nullable<int> id_grp { get; set; }
 
         [ForeignKey("Cycle")]
         public Nullable<int> id_cyc { get; set; }
@@ -33,7 +38,6 @@ namespace Projet1_ASP.Models
 
         
         public virtual Filiere Filiere { get; set; }
-        public virtual Groupe Groupe { get; set; }
         public virtual Cycle Cycle { get; set; }
         public virtual Niveau Niveau { get; set; }
     }

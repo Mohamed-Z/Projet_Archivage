@@ -19,6 +19,7 @@ namespace Projet1_ASP.Models
         public DbSet<Filiere> filieres { get; set; }
         public DbSet<Groupe> groupes { get; set; }
         public DbSet<Cycle> cycles { get; set; }
-        public DbSet<Niveau> niveaus { get; set; }
+        public DbSet<Niveau> niveaux { get; set; }
+        public DbSet<GroupeMembre> GroupeMembres { get; set; }
     }
 }
