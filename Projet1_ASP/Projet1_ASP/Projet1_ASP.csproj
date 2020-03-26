@@ -255,10 +255,11 @@
     <Content Include="Views\Etudiant\espaceetudiant.cshtml" />
     <Content Include="Views\Etudiant\inscription.cshtml" />
     <Content Include="Views\Etudiant\connexion.cshtml" />
+    <Content Include="Views\Encadrant\Connexion.cshtml" />
+    <Content Include="Views\Encadrant\Inscription.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Encadrant\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

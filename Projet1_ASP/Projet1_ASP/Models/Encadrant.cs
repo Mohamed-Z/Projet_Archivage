@@ -17,6 +17,7 @@ namespace Projet1_ASP.Models
 
         [Key]
         public int Id { get; set; }
+        [Required]
         public string nom { get; set; }
         public string prenom { get; set; }
         public string email { get; set; }
