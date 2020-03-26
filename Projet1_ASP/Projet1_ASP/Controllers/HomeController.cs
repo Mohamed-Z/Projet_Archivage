@@ -10,7 +10,7 @@ namespace Projet1_ASP.Controllers
 {
     public class HomeController : Controller
     {
-        SiteContextt context = new SiteContextt();
+        SiteContext context = new SiteContext();
 
         public ActionResult Index()
         {

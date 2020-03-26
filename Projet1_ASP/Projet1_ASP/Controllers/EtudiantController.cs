@@ -11,7 +11,7 @@ namespace Projet1_ASP.Controllers
     public class EtudiantController : Controller
     {
         // GET: Etudiant
-        SiteContextt context = new SiteContextt();
+        SiteContext context = new SiteContext();
 
 
 
@@ -63,6 +63,11 @@ namespace Projet1_ASP.Controllers
         public ActionResult espaceetudiant() {
             ViewBag.fil = new SelectList(context.filieres, "Id_filiere", "Nom_filiere");
             ViewBag.niv = new SelectList(context.niveaux, "id_Niveau", "nom_Niveau");
+            return View();
+        }
+
+        public ActionResult connexion()
+        {
             return View();
         }
 

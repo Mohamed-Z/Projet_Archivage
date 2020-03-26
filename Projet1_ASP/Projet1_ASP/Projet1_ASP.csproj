@@ -254,6 +254,7 @@
     <Content Include="Views\Etudiant\erreur.cshtml" />
     <Content Include="Views\Etudiant\espaceetudiant.cshtml" />
     <Content Include="Views\Etudiant\inscription.cshtml" />
+    <Content Include="Views\Etudiant\connexion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
