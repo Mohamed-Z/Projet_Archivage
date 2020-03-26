@@ -6,9 +6,9 @@ using System.Web;
 
 namespace Projet1_ASP.Models
 {
-    public class SiteContext : DbContext
+    public class SiteContextt : DbContext
     {
-        public SiteContext() : base("name=SiteContext")
+        public SiteContextt() : base("name=SiteContextt")
         {
 
         }

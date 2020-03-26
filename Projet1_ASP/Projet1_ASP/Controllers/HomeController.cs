@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using Projet1_ASP.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +10,33 @@ namespace Projet1_ASP.Controllers
 {
     public class HomeController : Controller
     {
+        SiteContextt context = new SiteContextt();
+
         public ActionResult Index()
         {
+           
+
             return View();
         }
+        [HttpPost]
+        public ActionResult Index(Etudiant a)
 
-        public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            //Session["etudiant"] = null;
+            Etudiant x = context.etudiants.SingleOrDefault(p => p.email.Equals(a.email)&& p.password.Equals(a.password));
+
+            if (x!=null) {
+
+                Etudiant b = new Etudiant();
+                b = x;
+
+                //return View("espaceetudiant", "etudiant", x);
+                return RedirectToAction("espaceetudiant", "etudiant",b);
+            }
 
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }
