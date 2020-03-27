@@ -133,6 +133,10 @@
     <Compile Include="Migrations\202003250147074_InitialCreate.Designer.cs">
       <DependentUpon>202003250147074_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003272252384_InitialCreate1.cs" />
+    <Compile Include="Migrations\202003272252384_InitialCreate1.Designer.cs">
+      <DependentUpon>202003272252384_InitialCreate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cycle.cs" />
     <Compile Include="Models\Encadrant.cs" />
@@ -257,6 +261,7 @@
     <Content Include="Views\Etudiant\connexion.cshtml" />
     <Content Include="Views\Encadrant\Connexion.cshtml" />
     <Content Include="Views\Encadrant\Inscription.cshtml" />
+    <Content Include="Views\Encadrant\EspaceEncadrant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -277,6 +282,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202003250147074_InitialCreate.resx">
       <DependentUpon>202003250147074_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003272252384_InitialCreate1.resx">
+      <DependentUpon>202003272252384_InitialCreate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

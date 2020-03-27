@@ -46,6 +46,7 @@ namespace Projet1_ASP.Controllers
         {
             if (ModelState.IsValid)
             {
+                encadrant.nbr_grp = 0;
                 db.encadrants.Add(encadrant);
                 db.SaveChanges();
                 return RedirectToAction("EspaceEncadrant", encadrant);
@@ -55,7 +56,7 @@ namespace Projet1_ASP.Controllers
 
         public ActionResult EspaceEncadrant(Encadrant encadrant)
         {
-            return View();
+            return View(encadrant);
         }
     }
 }
