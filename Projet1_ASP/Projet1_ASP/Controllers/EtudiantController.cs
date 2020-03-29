@@ -43,12 +43,7 @@ namespace Projet1_ASP.Controllers
         {
             
             
-          /*  e.id_fil = Convert.ToInt32( Request.Form["filiere"]);
-            e.id_cyc = Convert.ToInt32(Request.Form["cycle"]);
-           string nomniveau = Request.Form["niveau"];
-            var x = context.niveaux.SingleOrDefault(p => p.nom_Niveau.Equals(nomniveau));
-             e.id_niv =x.id_Niveau;
-             */
+          
 
             if (ModelState.IsValid == false)
             {
@@ -88,12 +83,7 @@ namespace Projet1_ASP.Controllers
         }
 
 
-        public ActionResult espaceetudiant() {
-            ViewBag.fil = new SelectList(context.filieres, "Id_filiere", "Nom_filiere");
-            ViewBag.niv = new SelectList(context.cycles, "id_Cycle", "nom_Cycle");
-            return View();
-        }
-
+       
 
 
 
@@ -105,6 +95,8 @@ namespace Projet1_ASP.Controllers
             return View();
         }
 
+
+
         [HttpPost]
         public ActionResult connexion(Etudiant a)
         {
@@ -115,12 +107,22 @@ namespace Projet1_ASP.Controllers
 
                 Etudiant b = new Etudiant();
                 b = x;
-
-                //return View("espaceetudiant", "etudiant", x);
-                return RedirectToAction("espaceetudiant", "etudiant", b);
+                
+                return View("espaceetudiant", b);
             }
             return View();
         }
+
+
+
+        public ActionResult espaceetudiant() {
+            ViewBag.niv = "";
+
+            ViewBag.fil = new SelectList(context.filieres, "Id_filiere", "Nom_filiere");
+            ViewBag.cycle = new SelectList(context.cycles, "id_Cycle", "nom_Cycle");
+            return View();
+        }
+
         public ActionResult erreur()
         {
             return View();
