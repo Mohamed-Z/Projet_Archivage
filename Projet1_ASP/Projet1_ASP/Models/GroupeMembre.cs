@@ -14,14 +14,12 @@ namespace Projet1_ASP.Models
 
         [ForeignKey("Groupe")]
         public Nullable<int> id_grp { get; set; }
-
         public virtual Groupe Groupe { get; set; }
-
         [ForeignKey("Etudiant")]
         public Nullable<int> id_et { get; set; }
-
         public virtual Etudiant Etudiant { get; set; }
-
         public string date { get; set; }
+        public Boolean confirmed { get; set; }
+        public String token { get; set; }
     }
 }

@@ -13,11 +13,15 @@ namespace Projet1_ASP.Models
         [ForeignKey("Groupe")]
         public int groupe_Id { get; set; }
 
+        
         public string Name { get; set; }
+        [Required]
         public string Type { get; set; }
         public int Length { get; set; }
         public byte[] Content { get; set; }
+        [Required]
         public string sujet { get; set; }
+        [Required]
         public string description { get; set; }
 
         

@@ -29,7 +29,9 @@
     <!-- Template Main CSS File -->
     <link href="../Content/css/style.css" rel="stylesheet">
 
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)  
 
 </head>
 
@@ -182,6 +184,7 @@
 
     <!-- Template Main JS File -->
     <script src="../Content/js/main.js"></script>
+
 </body>
 
 </html>
