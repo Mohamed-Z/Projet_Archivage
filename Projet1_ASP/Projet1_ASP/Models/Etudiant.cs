@@ -17,23 +17,32 @@ namespace Projet1_ASP.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int cne { get; set; }
-        public string nom { get; set; }
-        public string prenom { get; set; }
-        public string date_naiss { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+
+        [Required]
+        public int cne { get; set; }
+        [Required]
+        public string nom { get; set; }
+        [Required]
+        public string prenom { get; set; }
+        [Required]
+        public string date_naiss { get; set; }
+        [Required]
+        [RegularExpression(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))"+@"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$")]
+        public string email { get; set; }
+        [Required]
+        public string password { get; set; }
+        [Required]
         [ForeignKey("Filiere")]
         public Nullable<int> id_fil { get; set; }
-
+        [Required]
         [ForeignKey("Cycle")]
         public Nullable<int> id_cyc { get; set; }
-
+        [Required]
         [ForeignKey("Niveau")]
         public Nullable<int> id_niv { get; set; }
-
+        
         public byte[] photo { get; set; }
 
         

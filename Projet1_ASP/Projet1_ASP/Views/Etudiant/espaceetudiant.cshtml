@@ -1,15 +1,104 @@
 ﻿
+@{
+    ViewBag.Title = "Espace ";
+    Layout = "~/Views/Shared/_MonLayout.cshtml";
 
+
+}
+
+
+@Scripts.Render("~/bundles/jquery")
+
+
+<!-- ======= Header ======= -->
 @model Projet1_ASP.Models.Etudiant
 
-<h2>espaceetudiant</h2>
+<section id="etudiant" class="about"><div>
+    @Html.ActionLink("lien1", "", "Etudiant", new { @class = "form-control" })
+    @Html.ActionLink("lien2", "", "Etudiant", new { @class = "form-control" })
+</div>
+    <div style="margin-left: auto;margin-right: auto">
+        <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto;background-image: url('Content/img/slide/slide-1.jpg');">
 
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-<!-- ======= Header ======= -->
+            @using (Html.BeginForm("inscription", "Etudiant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="form-group">
+                    <label for="exampleInputPassword1">CNE</label>
+                    @Html.TextBoxFor(m => m.cne, new { @class = "form-control", @placeholder = @Model.cne, @disabled = "disabled" })
 
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Nom</label>
+                    @Html.TextBoxFor(m => m.nom, new { @class = "form-control", @placeholder = @Model.nom })
+
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">PRENOM</label>
+                    @Html.TextBoxFor(m => m.prenom, new { @class = "form-control", @placeholder = @Model.prenom })
+
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">email</label>
+                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = @Model.email })
+
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">date de naissance</label>
+                    @Html.TextBoxFor(m => m.date_naiss, new { @class = "form-control", @placeholder = @Model.date_naiss, @disabled = "disabled" })
+
+                </div>
+
+                <br />
+                <label for="exampleInputPassword1">FILIERE</label>
+                @Html.TextBoxFor(x => x.Filiere.Nom_filiere, new { @class = "form-control", @placeholder = @Model.Filiere.Nom_filiere, @disabled = "disabled" })
+
+                <br />
+                <label for="exampleInputPassword1">CYCLE</label>
+                @Html.TextBoxFor(x => x.Cycle.nom_Cycle, new { @class = "form-control", @placeholder = @Model.Cycle.nom_Cycle, @disabled = "disabled" })
+
+                <br />
+                <label for="exampleInputPassword1"></label>
+                @Html.TextBoxFor(x => x.Niveau.nom_Niveau, new { @class = "form-control", @placeholder = @Model.Niveau.nom_Niveau, @disabled = "disabled" })
+
+
+
+                <br />
+                <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary">Valider</button>
+            }
+
+
+        </div>
+    </div>
+</section>
+<script>
+    $a = 0;
+    $(document).ready(function () {
+        $("#s").on("change", function () {
+            //var text = "lalala";
+            $.get("/Etudiant/Js",
+                {
+                    h: $("#s").val()
+                }, function (data) {
+                    $("#c").empty();
+                    $.each(data, function (index, ligne) {
+                        $("#c").append("<option value=" + ligne.id_Niveau + ">" + ligne.nom_Niveau + "</option>")
+                        $a = ligne.id_Niveau
+                    });
+                    /* $("#c").empty();
+                      $("#c").append("<option>noura</option>")*/
+
+                })
+        });
+    });
+
+</script>
 
 
 
