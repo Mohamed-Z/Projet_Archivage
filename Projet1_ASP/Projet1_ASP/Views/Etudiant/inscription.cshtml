@@ -17,7 +17,7 @@
     <div style="margin-left: auto;margin-right: auto">
         <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto;background-image: url('Content/img/slide/slide-1.jpg');">
             @ViewBag.niv<br />
-            @Html.ValidationSummary()
+   
             @using (Html.BeginForm("inscription",
                         "Etudiant",
                         FormMethod.Post,
@@ -26,21 +26,25 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">CNE</label>
                     @Html.TextBoxFor(m => m.cne, new { @class = "form-control", @placeholder = "Cne" })
+                    @Html.ValidationMessageFor(x => x.cne, "", new { @style = "color:red" })
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputPassword1">Nom</label>
                     @Html.TextBoxFor(m => m.nom, new { @class = "form-control", @placeholder = "Nom" })
+                    @Html.ValidationMessageFor(x => x.nom, "", new { @style = "color:red" })
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputPassword1">PRENOM</label>
                     @Html.TextBoxFor(m => m.prenom, new { @class = "form-control", @placeholder = "Entrer prenom" })
+                    @Html.ValidationMessageFor(x => x.prenom, "", new { @style = "color:red" })
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">email</label>
                     @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = "Entrer Email" })
+                    @Html.ValidationMessageFor(x => x.email, "", new { @style = "color:red" })
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
 
@@ -49,24 +53,29 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">date de naissance</label>
                     @Html.TextBoxFor(m => m.date_naiss, new { @class = "form-control", @placeholder = "Entrer date naissance" })
+                    @Html.ValidationMessageFor(x => x.date_naiss, "", new { @style = "color:red" })
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
                     @Html.PasswordFor(m => m.password, new { @class = "form-control", @placeholder = "Password" })
+                    @Html.ValidationMessageFor(x => x.password, "", new { @style = "color:red" })
                 </div>
 
                 <br />
                 <label for="exampleInputPassword1">FILIERE</label>
                 @Html.DropDownListFor(m => m.id_fil, ViewBag.fil as SelectList, "selectionner une filiere", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.id_fil, "veuillez entrer la filiere", new { @style = "color:red" })
 
                 <br />
 
                 <label for="exampleInputPassword1">Cycle</label>
                 @Html.DropDownListFor(m => m.id_cyc, ViewBag.cycle as SelectList, "selectionner un cycle", new { id = "s", @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.id_cyc, "veuillez entrer le cycle", new { @style = "color:red" })
                 <br />
                 <label for="exampleInputPassword1">Niveau</label>
                 @Html.DropDownListFor(m => m.id_niv, Enumerable.Empty<SelectListItem>(), "selectionner un niveau", new { id = "c", @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.id_niv, "veuillez entrer le niveau", new { @style = "color:red" })
                 <br />
                 <input type="file" name="file" id="file" /><br><br>
 
