@@ -66,29 +66,39 @@
 
             <nav class="nav-menu float-right d-none d-lg-block">
                 <ul>
-                    <li class="active"><a href="~/#header">Home</a></li>
+                    <li><a href="~/#header">Home</a></li>
                     <li><a href="~/#about">About Us</a></li>
                     <li><a href="~/#portfolio">Portfolio</a></li>
                     <li><a href="~/#team">Team</a></li>
-                    <li class="drop-down">
-                        <a href="">Espace intranet</a>
-                        <ul>
+
+                    @{ if (Session["id"] == null)
+                        {
                             <li class="drop-down">
-                                <a href="#">Etudiant</a>
+                                <a href="">Espace intranet</a>
                                 <ul>
-                                    <li><a href="~/Etudiant/connexion">Connexion</a></li>
-                                    <li><a href="~/Etudiant/inscription">Inscription</a></li>
+                                    <li class="drop-down">
+                                        <a href="#">Etudiant</a>
+                                        <ul>
+                                            <li><a href="~/Etudiant/connexion">Connexion</a></li>
+                                            <li><a href="~/Etudiant/inscription">Inscription</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="drop-down">
+                                        <a href="#">Encadrant</a>
+                                        <ul>
+                                            <li><a href="~/Encadrant/Connexion">Connexion</a></li>
+                                            <li><a href="~/Encadrant/Inscription">Inscription</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="drop-down">
-                                <a href="#">Encadrant</a>
-                                <ul>
-                                    <li><a href="~/Encadrant/Connexion">Connexion</a></li>
-                                    <li><a href="~/Encadrant/Inscription">Inscription</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Encadrant/EspaceEncadrant">Espace Encadrant</a></li>
+                        }
+                    }
+
                     <li><a href="~/#contact">Contact Us</a></li>
                 </ul>
             </nav><!-- .nav-menu -->

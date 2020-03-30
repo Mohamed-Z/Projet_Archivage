@@ -18,21 +18,20 @@ namespace Projet1_ASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult Connexion(string email,string password)
+        public ActionResult Connexion(string email, string password)
         {
-            Encadrant encadrant = new Encadrant();
+            var x = db.encadrants.ToList();
 
-            var x = db.encadrants.Where(p => p.email == email && p.password == password);
-            
-            foreach(var i in x)
+            foreach (var i in x)
             {
-                encadrant = i;
+                if (i.email == email && i.password == password)
+                {
+                    Session["id"] = i.Id;
+
+                    return RedirectToAction("EspaceEncadrant");
+                }
             }
-            if (encadrant == null)
-            {
-                return View();
-            }
-            return RedirectToAction("EspaceEncadrant",encadrant);
+            return View();
         }
 
         [HttpGet]
@@ -49,13 +48,16 @@ namespace Projet1_ASP.Controllers
                 encadrant.nbr_grp = 0;
                 db.encadrants.Add(encadrant);
                 db.SaveChanges();
-                return RedirectToAction("EspaceEncadrant", encadrant);
+                Session["id"] = encadrant.Id;
+                return RedirectToAction("EspaceEncadrant");
             }
             return View();
         }
 
-        public ActionResult EspaceEncadrant(Encadrant encadrant)
+        public ActionResult EspaceEncadrant()
         {
+            int id = Convert.ToInt32(Session["id"]);
+            Encadrant encadrant = db.encadrants.Find(id);
             return View(encadrant);
         }
     }

@@ -129,13 +129,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003250147074_InitialCreate.cs" />
-    <Compile Include="Migrations\202003250147074_InitialCreate.Designer.cs">
-      <DependentUpon>202003250147074_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003272252384_InitialCreate1.cs" />
-    <Compile Include="Migrations\202003272252384_InitialCreate1.Designer.cs">
-      <DependentUpon>202003272252384_InitialCreate1.cs</DependentUpon>
+    <Compile Include="Migrations\202003302206016_InitialCreate.cs" />
+    <Compile Include="Migrations\202003302206016_InitialCreate.Designer.cs">
+      <DependentUpon>202003302206016_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cycle.cs" />
@@ -155,6 +151,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\Style2.css" />
     <Content Include="Content\img\about.jpg" />
     <Content Include="Content\img\apple-touch-icon.png" />
     <Content Include="Content\img\favicon.png" />
@@ -280,11 +277,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003250147074_InitialCreate.resx">
-      <DependentUpon>202003250147074_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003272252384_InitialCreate1.resx">
-      <DependentUpon>202003272252384_InitialCreate1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003302206016_InitialCreate.resx">
+      <DependentUpon>202003302206016_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

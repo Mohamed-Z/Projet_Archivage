@@ -1,2 +1,36 @@
 ﻿
-<h1>@Model.nom</h1>
+
+@{
+    ViewBag.Title = "Espace Encadrant";
+    Layout = "~/Views/Shared/_MonLayout.cshtml";
+}
+<link href="~/Content/css/Style2.css" rel="stylesheet" />
+
+<section id="contact" class="contact minita">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-3 d-flex align-items-stretch wd" data-aos="fade-up">
+                <div class="info-box">
+                    <div class="sidenav">
+                        <a href="#">
+
+                            @Model.nom @Model.prenom
+                        </a>
+                        <a href="#">Déconnexion</a>
+                        <a href="#">Groupes</a>
+                        <a href="#">Chercher</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9 d-flex align-items-stretch wd" data-aos="fade-up">
+                <div class="info-box">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
