@@ -14,7 +14,7 @@ namespace Projet1_ASP.Controllers
 {
     public class EtudiantController : Controller
     {
-
+        /*
         List<SelectListItem> list = new List<SelectListItem>
                 {
                     new SelectListItem{ Text="Mini-Projet", Value = "Mini-Projet", Selected = true },
@@ -79,6 +79,7 @@ namespace Projet1_ASP.Controllers
                     MemoryStream target = new MemoryStream();
                     file.InputStream.CopyTo(target); // generates problem in this line
                     byte[] data = target.ToArray();*/
+                    /*
                     e.photo = imageBytes;
                    
 
@@ -170,6 +171,7 @@ namespace Projet1_ASP.Controllers
 
         [HttpPost]
         public ActionResult Archiver(Models.File archive)
+        
         {   Etudiant et = (Etudiant)Session["connectedStudent"];
 
            // ViewData["type"] = new SelectList(list);
@@ -238,7 +240,7 @@ namespace Projet1_ASP.Controllers
         [HttpGet]
         public ActionResult InviterGroupe()
         {
-
+            /*
             Etudiant et = (Etudiant) Session["connectedStudent"] ;
            
             var grp = context.groupes.Where(g => g.id_admin == et.cne).Single();
@@ -253,8 +255,9 @@ namespace Projet1_ASP.Controllers
             ViewBag.e = new SelectList(context.etudiants, "cne","nom");
 
             return View(list);
+            */
         }
-
+    /*
 
         [HttpPost]
         public JsonResult AddToGroup(int? cne)
@@ -285,4 +288,5 @@ namespace Projet1_ASP.Controllers
         }
 
     }
+    */
 }
