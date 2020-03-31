@@ -60,5 +60,11 @@ namespace Projet1_ASP.Controllers
             Encadrant encadrant = db.encadrants.Find(id);
             return View(encadrant);
         }
+        
+        public ActionResult Deconnexion()
+        {
+            Session["id"] = null;
+            return RedirectToAction("Connexion");
+        }
     }
 }
