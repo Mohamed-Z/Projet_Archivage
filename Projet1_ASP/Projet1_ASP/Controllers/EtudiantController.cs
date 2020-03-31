@@ -2,11 +2,13 @@
 using Projet1_ASP.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using File = Projet1_ASP.Models.File;
 
 namespace Projet1_ASP.Controllers
 {
@@ -24,7 +26,7 @@ namespace Projet1_ASP.Controllers
         SiteContext context = new SiteContext();
 
 
-
+    // inscription 
         public ActionResult inscription()
         {
             ViewBag.niv = "";
@@ -68,11 +70,16 @@ namespace Projet1_ASP.Controllers
                     string path = Path.Combine(Server.MapPath("~/Images"),Path.GetFileName(file.FileName));
                     file.SaveAs(path);
                     ////// base de données
-                    var length = file.InputStream.Length; //Length: 103050706
+                    byte[] imageBytes = null;  
+                    BinaryReader reader = new BinaryReader(file.InputStream);
+                    imageBytes = reader.ReadBytes((int)file.ContentLength);
+
+                    
+                /*    var length = file.InputStream.Length; //Length: 103050706
                     MemoryStream target = new MemoryStream();
                     file.InputStream.CopyTo(target); // generates problem in this line
-                    byte[] data = target.ToArray();
-                    e.photo = data;
+                    byte[] data = target.ToArray();*/
+                    e.photo = imageBytes;
                    
 
                 }
@@ -93,7 +100,7 @@ namespace Projet1_ASP.Controllers
 
        
 
-
+        //connexion
 
 
 
@@ -110,6 +117,9 @@ namespace Projet1_ASP.Controllers
         {
             Etudiant x = context.etudiants.SingleOrDefault(p => p.email.Equals(a.email) && p.password.Equals(a.password));
 
+            Session["connectedStudent"] = x;
+
+
             if (x != null)
             {
 
@@ -121,32 +131,38 @@ namespace Projet1_ASP.Controllers
             return View();
         }
 
+        //espace etudiant 
 
-
-        public ActionResult espaceetudiant() {
+        public ActionResult espaceetudiant(Etudiant e) {
             ViewBag.niv = "";
-
+            ViewBag.file = "";
+           
+               MemoryStream ms =new MemoryStream(e.photo); //using System.IO & tab tableau de byte
+            Image img = Image.FromStream(ms); //using System.Drawing
+                                              //   pictureBox1.Image = img; // avec pictureBox1 objet PictureBox que tu auras déposé sur ta Form
+            ViewBag.image = img;
             ViewBag.fil = new SelectList(context.filieres, "Id_filiere", "Nom_filiere");
             ViewBag.cycle = new SelectList(context.cycles, "id_Cycle", "nom_Cycle");
+           
+
             return View();
         }
-
-        public ActionResult erreur()
+        [HttpPost]
+        public ActionResult espaceetudiant()
         {
+            ViewBag.file = "";
+
+
+           // context.SaveChanges();
+
             return View();
         }
 
-        public ActionResult test()
-        {
-            return View();
-        }
-
+// a traiter 
 
         public ActionResult Archiver()
         {
-            Etudiant etd = context.etudiants.Find(1);
-            Session["connectedStudent"] = etd;
-           
+          
 
             ViewBag.Type = list;
 
@@ -156,7 +172,14 @@ namespace Projet1_ASP.Controllers
 
         [HttpPost]
         public ActionResult Archiver(Models.File archive)
-        {
+        {   Etudiant et = (Etudiant)Session["connectedStudent"];
+
+           // ViewData["type"] = new SelectList(list);
+
+             GroupeMembre membre =context.GroupeMembres.SingleOrDefault(x => x.id_et == et.cne);
+
+             File existfile = context.files.SingleOrDefault(p => p.groupe_Id == membre.id_grp);
+            
             if (Request.Files.Count > 0)
             {
                 var file = Request.Files[0];
@@ -169,16 +192,35 @@ namespace Projet1_ASP.Controllers
                     archive.Content = memoryStream.ToArray();
                     archive.Name = file.FileName;
                     archive.Length = file.ContentLength;
-
-                    if(ModelState.IsValid)
+                    var grp = context.groupes.SingleOrDefault(g => g.id_admin == et.cne);
+                    if (ModelState.IsValid)
                     {
-                        Etudiant et = (Etudiant)Session["connectedStudent"];
-                        var grp = context.groupes.Where(g => g.id_admin == et.cne).Single();
-                        archive.groupe_Id = grp.grp_id;
+                        if (existfile == null)
+                        {
+                            archive.groupe_Id = grp.grp_id;
                         grp.type = archive.Type;
                         context.files.Add(archive);
                         context.SaveChanges();
-                        return RedirectToAction("espaceetudiant");
+
+                            ViewBag.file = "vous n'avez pas encore mettez aucun file";
+                        }
+                       
+
+                        if (grp == null)
+                        {
+                            ViewBag.file = "vous n avez pas le droit vous etes pas un admin";
+                            return View("espaceetudiant", et);
+                        }
+                        
+                            
+                        
+                        else
+                        {
+                            ViewBag.file = "vous avez le droit d instancier votre fichier qu'une seule fois";
+
+                            return View("espaceetudiant", et);
+
+                        } 
                     }
 
 
@@ -199,14 +241,13 @@ namespace Projet1_ASP.Controllers
         public ActionResult InviterGroupe()
         {
 
-            Etudiant et = context.etudiants.Find(1);
-            Session["connectedStudent"] = et;
-
+            Etudiant et = (Etudiant) Session["connectedStudent"] ;
+           
             var grp = context.groupes.Where(g => g.id_admin == et.cne).Single();
 
             if (grp == null)
             {
-                return RedirectToAction("espaceetudiant");
+                return RedirectToAction("espaceetudiant",et);
             }
       
            var list = context.GroupeMembres.Where(g => g.id_grp == grp.grp_id).ToList();
@@ -222,7 +263,7 @@ namespace Projet1_ASP.Controllers
         {
             Etudiant et = (Etudiant)Session["connectedStudent"];
             var x = Request;
-            var grp = context.groupes.Where(g => g.id_admin == et.cne).Single();
+            var grp = context.groupes.SingleOrDefault(g => g.id_admin == et.cne);
             var currentGroupMembers = context.GroupeMembres.Where(g => g.id_grp == grp.grp_id);
             if(currentGroupMembers.Count() > 4)
             {

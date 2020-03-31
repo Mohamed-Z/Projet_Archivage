@@ -5,19 +5,18 @@
     ViewData["Type"] = ViewBag.Type;
 }
 
-    <div class="container border mb-2 p-3">
-        <div class="row justify-content-center">
+<div class="container border mb-2 p-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            @using (Html.BeginForm("Archiver", "Etudiant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
 
-            <div class="col-md-8">
-                @using (Html.BeginForm("Archiver", "Etudiant", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    
-                     <div class="form-group">
-                <label class="control-label col-md-2">Type</label>
-                <div class="col-md-8">
-                    @Html.DropDownList("Type",ViewData["Type"] as List<SelectListItem>, new { id = "type" })
+                <div class="form-group">
+                    <label class="control-label col-md-2">Type</label>
+                    <div class="col-md-8">
+                        @Html.DropDownList("Type", ViewData["Type"] as SelectList, new { id = "type" })
+                    </div>
                 </div>
-            </div>
 
 
                 <div class="form-group">
@@ -35,36 +34,32 @@
                         @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                        <div class="form-group">
-                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-8">
-                            <input type="file" name="Content2" class="form-control-file"  required/>
-                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-                        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        <input type="file" name="Content2" class="form-control-file" required />
+                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
 
 
-                    <div class="form-group">
-                        <div class="col-md-10 text-center">
-                            <input type="submit" value="Confirmer" class="btn btn-primary" />
-                        </div>
+                <div class="form-group">
+                    <div class="col-md-10 text-center">
+                        <input type="submit" value="Confirmer" class="btn btn-primary" />
                     </div>
-                    
-
-                   
-
-
-                    
-
-
-                }
-            </div>
-           
+                </div>
 
 
 
+
+
+
+
+
+            }
         </div>
 
-    </div>
 
+    </div>
+</div>

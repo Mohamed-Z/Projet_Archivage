@@ -6,15 +6,21 @@
 
 }
 
+@ViewBag.file
 
 @Scripts.Render("~/bundles/jquery")
 
 
 <!-- ======= Header ======= -->
 @model Projet1_ASP.Models.Etudiant
+<div style="height:400px;width:400px ;background-color:lightblue ;margin-right:auto;margin-left:auto">
+    <asp:Image ID="imgProfile" Visible="true" runat="server" />
+    imgProfile.ImageUrl = "~/Account/Handler.ashx?imgid=" + serie;
 
+</div>
 <section id="etudiant" class="about"><div>
-    @Html.ActionLink("lien1", "", "Etudiant", new { @class = "form-control" })
+    @Html.ActionLink("archiver", "archiver", "Etudiant", new { @class = "form-control" })
+    @Html.ActionLink("inviter des membre a votre groupe", "inviterGroupe", "Etudiant", new { @class = "form-control" })
     @Html.ActionLink("lien2", "", "Etudiant", new { @class = "form-control" })
 </div>
     <div style="margin-left: auto;margin-right: auto">
@@ -70,7 +76,7 @@
 
 
                 <br />
-                <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary">Valider</button>
+               
             }
 
 
