@@ -126,26 +126,24 @@ namespace Projet1_ASP.Controllers
                 Etudiant b = new Etudiant();
                 b = x;
                 
-                return View("espaceetudiant", b);
+                return View("espaceetudiant", x);
             }
+
             return View();
         }
-
+      
         //espace etudiant 
 
-        public ActionResult espaceetudiant(Etudiant e) {
+        public ActionResult espaceetudiant(Etudiant x) {
             ViewBag.niv = "";
             ViewBag.file = "";
            
-               MemoryStream ms =new MemoryStream(e.photo); //using System.IO & tab tableau de byte
-            Image img = Image.FromStream(ms); //using System.Drawing
-                                              //   pictureBox1.Image = img; // avec pictureBox1 objet PictureBox que tu auras déposé sur ta Form
-            ViewBag.image = img;
+              
             ViewBag.fil = new SelectList(context.filieres, "Id_filiere", "Nom_filiere");
             ViewBag.cycle = new SelectList(context.cycles, "id_Cycle", "nom_Cycle");
            
 
-            return View();
+            return View(x);
         }
         [HttpPost]
         public ActionResult espaceetudiant()

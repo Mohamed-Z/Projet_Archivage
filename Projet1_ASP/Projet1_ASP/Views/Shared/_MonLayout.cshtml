@@ -8,6 +8,7 @@
     <title>Mamba Bootstrap Template - Index</title>
     <meta content="" name="descriptison">
     <meta content="" name="keywords">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 
 
@@ -31,7 +32,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)  
+    @RenderSection("scripts", required: false)
 
 </head>
 
@@ -71,7 +72,7 @@
                     <li><a href="~/#portfolio">Portfolio</a></li>
                     <li><a href="~/#team">Team</a></li>
 
-                    @{ if (Session["id"] == null)
+                    @{ if (Session["id"] == null && Session["connectedStudent"] == null)
                         {
                             <li class="drop-down">
                                 <a href="">Espace intranet</a>
@@ -93,18 +94,40 @@
                                 </ul>
                             </li>
                         }
-                        else
+                        else if (Session["id"] != null)
                         {
                             <li><a href="~/Encadrant/EspaceEncadrant">Espace Encadrant</a></li>
                         }
+                        else
+                        {
+                            <li class="drop-down">
+                                <a href="">Espace etudiant</a>
+                                <ul>
+                                    <li >
+                                        <a href="#">vos  information</a>
+                                    </li>
+                                    <!-- ======= a faire ======= -->
+                                    <li >
+                                        <a href="#">modifier vos information</a>
+                                    </li>
+                                   
+                                    <li>
+                                        <a href="#">deconnexion</a>
+
+                                    </li>
+                                </ul>
+                            </li> }
                     }
+                   
 
                     <li><a href="~/#contact">Contact Us</a></li>
                 </ul>
             </nav><!-- .nav-menu -->
 
         </div>
-    </header><!-- End Header -->
+    </header>
+
+    <!-- End Header -->
     @RenderBody()
     <!-- ======= Footer ======= -->
     <footer id="footer">

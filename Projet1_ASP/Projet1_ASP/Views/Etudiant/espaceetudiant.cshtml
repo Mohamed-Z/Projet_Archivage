@@ -13,16 +13,35 @@
 
 <!-- ======= Header ======= -->
 @model Projet1_ASP.Models.Etudiant
+
+
+<!-- ======= razoor ======= -->
+
+@{ Projet1_ASP.Models.SiteContext context = new Projet1_ASP.Models.SiteContext();
+    var grp = context.groupes.Where(g => g.id_admin == Model.cne).SingleOrDefault();
+    if (grp != null)
+    {
+        @Html.ActionLink("archiver", "archiver", "Etudiant", new { @class = "form-control" })
+        @Html.ActionLink("inviter des membre a votre groupe", "inviterGroupe", "Etudiant", new { @class = "form-control" })
+        @Html.ActionLink("lien2", "", "Etudiant", new { @class = "form-control" })
+    }
+
+}
+
 <div style="height:400px;width:400px ;background-color:lightblue ;margin-right:auto;margin-left:auto">
-    <asp:Image ID="imgProfile" Visible="true" runat="server" />
-    imgProfile.ImageUrl = "~/Account/Handler.ashx?imgid=" + serie;
+    
+    @{
+        var base64 = Convert.ToBase64String(@Model.photo);
+        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+
+    <img src="@imgSrc" style="height:400px;width:400px" />
 
 </div>
-<section id="etudiant" class="about"><div>
-    @Html.ActionLink("archiver", "archiver", "Etudiant", new { @class = "form-control" })
-    @Html.ActionLink("inviter des membre a votre groupe", "inviterGroupe", "Etudiant", new { @class = "form-control" })
-    @Html.ActionLink("lien2", "", "Etudiant", new { @class = "form-control" })
-</div>
+<section id="etudiant" class="about">
+    <div>
+
+    </div>
     <div style="margin-left: auto;margin-right: auto">
         <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto;background-image: url('Content/img/slide/slide-1.jpg');">
 
@@ -36,19 +55,19 @@
 
                 <div class="form-group">
                     <label for="exampleInputPassword1">Nom</label>
-                    @Html.TextBoxFor(m => m.nom, new { @class = "form-control", @placeholder = @Model.nom })
+                    @Html.TextBoxFor(m => m.nom, new { @class = "form-control", @placeholder = @Model.nom , @disabled = "disabled" })
 
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputPassword1">PRENOM</label>
-                    @Html.TextBoxFor(m => m.prenom, new { @class = "form-control", @placeholder = @Model.prenom })
+                    @Html.TextBoxFor(m => m.prenom, new { @class = "form-control", @placeholder = @Model.prenom , @disabled = "disabled" })
 
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">email</label>
-                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = @Model.email })
+                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = @Model.email, @disabled = "disabled" })
 
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
@@ -76,7 +95,7 @@
 
 
                 <br />
-               
+
             }
 
 
