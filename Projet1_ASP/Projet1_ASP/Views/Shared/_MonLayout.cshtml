@@ -96,7 +96,22 @@
                         }
                         else if (Session["id"] != null)
                         {
-                            <li><a href="~/Encadrant/EspaceEncadrant">Espace Encadrant</a></li>
+                            <li class="drop-down">
+                                <a href="~/Encadrant/EspaceEncadrant">Espace Encadrant</a>
+                                <ul>
+                                    <li>
+                                        <a href="#">Chercher</a>
+                                    </li>
+                                    <!-- ======= a faire ======= -->
+                                    <li>
+                                        <a href="#">Groupes</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="~/Encadrant/Deconnexion">deconnexion</a>
+                                    </li>
+                                </ul>
+                            </li>
                         }
                         else
                         {

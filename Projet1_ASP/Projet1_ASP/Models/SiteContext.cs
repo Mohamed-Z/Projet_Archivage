@@ -21,5 +21,7 @@ namespace Projet1_ASP.Models
         public DbSet<Cycle> cycles { get; set; }
         public DbSet<Niveau> niveaux { get; set; }
         public DbSet<GroupeMembre> GroupeMembres { get; set; }
+        public DbSet<Type> types { get; set; }
+        public DbSet<SuperUser> superUsers { get; set; }
     }
 }
