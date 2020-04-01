@@ -18,7 +18,6 @@ namespace Projet1_ASP.Models
 
         [Key]
         public int grp_id { get; set; }
-        public string type { get; set; }
 
         [ForeignKey("Encadrant")]
         public Nullable<int> id_enc { get; set; }
