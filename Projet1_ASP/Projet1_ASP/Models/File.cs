@@ -24,7 +24,8 @@ namespace Projet1_ASP.Models
         [Required]
         public string description { get; set; }
 
-        
+        public string date_disp { get; set; }
+
         public virtual Groupe Groupe { get; set; }
 
     }

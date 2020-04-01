@@ -105,6 +105,7 @@ namespace Projet1_ASP.Migrations
                         Content = c.Binary(),
                         sujet = c.String(nullable: false),
                         description = c.String(nullable: false),
+                        date_disp = c.String(),
                     })
                 .PrimaryKey(t => t.groupe_Id)
                 .ForeignKey("dbo.Groupes", t => t.groupe_Id)
