@@ -66,5 +66,31 @@ namespace Projet1_ASP.Controllers
             Session["id"] = null;
             return RedirectToAction("Connexion");
         }
+
+        [HttpGet]
+        public ActionResult Modifier()
+        {
+            int id = Convert.ToInt32(Session["id"]);
+            Encadrant encadrant = db.encadrants.Find(id);
+            return View(encadrant);
+        }
+
+        [HttpPost]
+        public ActionResult Modifier(Encadrant encadrant)
+        {
+            int id = Convert.ToInt32(Session["id"]);
+            Encadrant e = db.encadrants.Find(id);
+            if (ModelState.IsValid)
+            {
+                e.nom = encadrant.nom;
+                e.prenom = encadrant.prenom;
+                e.email = encadrant.email;
+                e.password = encadrant.password;
+                e.confirmation = encadrant.confirmation;
+                db.SaveChanges();
+                return View(encadrant);
+            }
+            return View(e);
+        }
     }
 }

@@ -71,7 +71,6 @@ namespace Projet1_ASP.Migrations
                 c => new
                     {
                         grp_id = c.Int(nullable: false, identity: true),
-                        type = c.String(),
                         id_enc = c.Int(),
                         id_tp = c.Int(),
                     })
