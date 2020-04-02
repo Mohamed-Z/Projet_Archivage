@@ -14,6 +14,8 @@ namespace Projet1_ASP.Controllers
         [HttpGet]
         public ActionResult Connexion()
         {
+            ViewBag.erreur = "";
+            ViewBag.msg = "";
             return View();
         }
 
@@ -31,6 +33,8 @@ namespace Projet1_ASP.Controllers
                     return RedirectToAction("EspaceEncadrant");
                 }
             }
+            ViewBag.erreur = "is-invalid";
+            ViewBag.msg = "Email ou mot de passe incorrect !";
             return View();
         }
 
@@ -60,7 +64,7 @@ namespace Projet1_ASP.Controllers
             Encadrant encadrant = db.encadrants.Find(id);
             return View(encadrant);
         }
-        
+
         public ActionResult Deconnexion()
         {
             Session["id"] = null;
@@ -91,6 +95,30 @@ namespace Projet1_ASP.Controllers
                 return View(encadrant);
             }
             return View(e);
+        }
+
+        public ActionResult Groupes()
+        {
+            int id = Convert.ToInt32(Session["id"]);
+            Encadrant encadrant = db.encadrants.Find(id);
+            List<Groupe> list_groupe = db.groupes.Where(x => x.id_enc == id).ToList();
+            List<List<Etudiant>> list_grps = new List<List<Etudiant>>();
+            List<int> list_grp_id = new List<int>();
+            foreach (Groupe groupe in list_groupe)
+            {
+                List<GroupeMembre> list_gm = db.GroupeMembres.Where(x => x.id_grp == groupe.grp_id).ToList();
+                List<Etudiant> list_etudiant = new List<Etudiant>();
+                foreach (GroupeMembre gm in list_gm)
+                {
+                    Etudiant etudiant = db.etudiants.Find(gm.id_et);
+                    list_etudiant.Add(etudiant);
+                }
+                list_grp_id.Add(groupe.grp_id);
+                list_grps.Add(list_etudiant);
+            }
+            ViewBag.listids = list_grp_id;
+            ViewBag.listgrp = list_grps;
+            return View(encadrant);
         }
     }
 }

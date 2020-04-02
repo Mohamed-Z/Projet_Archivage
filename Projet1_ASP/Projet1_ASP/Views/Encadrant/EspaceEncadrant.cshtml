@@ -6,7 +6,7 @@
 }
 <link href="~/Content/css/Style2.css" rel="stylesheet" />
 
-<section id="contact" class="contact minita">
+<section id="contact" class="contact minita" style="padding:10px;">
     <div class="container">
 
         <div class="row">
@@ -15,19 +15,40 @@
                 <div class="info-box">
                     <div class="sidenav">
                         <a href="~/Encadrant/Modifier">
-
-                            @Model.nom @Model.prenom
+                            @Model.prenom @Model.nom
                         </a>
                         <a href="~/Encadrant/Deconnexion">Déconnexion</a>
-                        <a href="#">Groupes</a>
-                        <a href="#">Chercher</a>
+                        <a href="~/Encadrant/Groupes">Liste de Groupes</a>
+                        <a href="~/Encadrant/EspaceEncadrant">Chercher</a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-9 d-flex align-items-stretch wd" data-aos="fade-up">
-                <div class="info-box">
+            <div class="col-lg-9 d-flex align-items-stretch wd " data-aos="fade-up">
+                <div class="info-box" style="padding:0;">
+                    <nav class="navbar navbar-dark bg-dark navbar-expand justify-content-between">
 
+                        <div class="justify-content-between d-inline-flex col-6">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Taper votre recherche ici" aria-label="Chercher">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Chercher</button>
+                        </div>
+                        <div class="justify-content-around d-inline-flex col-3">
+
+                            <select id="inputState" class="custom-select col-12">
+                                <option selected disabled value="">Rechercher par</option>
+                                <option>Nom</option>
+                                <option>Sujet</option>
+                            </select>
+                        </div>
+                        <div class="justify-content-around d-inline-flex col-3">
+
+                            <select id="inputState" class="custom-select col-12">
+                                <option selected disabled value="">Trier par</option>
+                                <option>Date</option>
+                                <option>Sujet</option>
+                            </select>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

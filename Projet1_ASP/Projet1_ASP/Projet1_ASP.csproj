@@ -264,6 +264,7 @@
     <Content Include="Views\Etudiant\InviterGroupe.cshtml" />
     <Content Include="Views\Encadrant\Modifier.cshtml" />
     <Content Include="Views\Etudiant\notification.cshtml" />
+    <Content Include="Views\Encadrant\Groupes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
