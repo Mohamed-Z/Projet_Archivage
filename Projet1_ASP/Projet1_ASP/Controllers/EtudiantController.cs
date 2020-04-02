@@ -111,7 +111,7 @@ namespace Projet1_ASP.Controllers
         {
             Etudiant x = context.etudiants.SingleOrDefault(p => p.email.Equals(a.email) && p.password.Equals(a.password));
 
-            Session["connectedStudent"] = x;
+            
 
 
             if (x != null)
@@ -120,7 +120,8 @@ namespace Projet1_ASP.Controllers
                 Etudiant b = new Etudiant();
                 b = x;
                 ViewBag.type = new SelectList(context.types, "id_type", "nom_type");
-                return View("espaceetudiant", x);
+                Session["connectedStudent"] = x;
+                return RedirectToAction("espaceetudiant");
             }
 
             return View();
@@ -128,7 +129,16 @@ namespace Projet1_ASP.Controllers
 
         //espace etudiant 
         [HttpGet]
-        public ActionResult espaceetudiant(Etudiant x) {
+        public ActionResult espaceetudiant() {
+
+            Etudiant etd = Logged();
+
+
+            if (etd == null)
+            {
+                return RedirectToAction("connexion");
+            }
+
             ViewBag.erreur = "";
             ViewBag.niv = "";
             ViewBag.file = "";
@@ -138,108 +148,62 @@ namespace Projet1_ASP.Controllers
 
 
 
-            return View(x);
+            return View(etd);
 
 }
-        [HttpPost]
-        public ActionResult espaceetudiant()
+
+        public ActionResult Archiver(int? id)
         {
-            
-            ViewBag.erreur = "";
-            ViewBag.niv = "";
-             ViewBag.file = "";
-          
-            ViewBag.type = new SelectList(context.types, "id_type", "nom_type");
-            
-            Etudiant e = (Etudiant)Session["connectedStudent"];
-            //if vous avez deja initialiser un groupe de ce type
-            var groupedetudiant = context.GroupeMembres.Where(x => x.id_et == e.cne);
-            if (groupedetudiant != null) {
-                foreach (var mem in groupedetudiant)
-                {
-                    var typedegroupemembre = context.groupes.SingleOrDefault(x => x.grp_id == mem.id_grp);
-                    if (typedegroupemembre != null )
-                    {
-                        if (typedegroupemembre.id_tp == Convert.ToInt32(Request.Form["type"]) && mem.confirmed==true )
-                        {
-                            Groupe grp = (Groupe)typedegroupemembre;
-                            Session["groupe"] = grp;
-                            ViewBag.erreur = "vous etes deja un membre de ce type de projet et vous avez confirmer ca";
-                            return RedirectToAction("inviterGroupe");
-                        }
-                    }
 
-                }
+            if (id == null)
+                return RedirectToAction("Groupes");
 
-            } 
-
-            //sinon
-                Groupe g = new Groupe();
-                Random rnd = new Random();
-                var list = context.encadrants.ToList();
-                int r = rnd.Next(list.Count);
-                g.id_tp = Convert.ToInt32(Request.Form["type"]);
-                g.id_enc = list[r].Id;
-            context.encadrants.SingleOrDefault(x => x.Id == g.id_enc).nbr_grp = g.grp_id;
-                context.groupes.Add(g);
-                Session["groupe"] = g;
+            Etudiant etd = Logged();
 
 
-             
-              /*  GroupeMembre groupemembre = new GroupeMembre();
-                groupemembre.id_grp = g.grp_id;
-                groupemembre.id_et = e.cne;
-                DateTime localDate = DateTime.Now;
-                groupemembre.date = Convert.ToString(localDate);
-                context.GroupeMembres.Add(groupemembre);*/
-                context.SaveChanges();
-
-                return RedirectToAction("inviterGroupe");
-           
-        }
-      
-
-            // a traiter 
-
-            public ActionResult Archiver()
-        {
-            ViewBag.accord = "";
-
-          
-
-           return View();
-        }
-
-
-        [HttpPost]
-        public ActionResult Archiver(Models.File archive, HttpPostedFileBase file)
-        {
-            ViewBag.accord = "";
-            ViewBag.type = new SelectList(context.types, "id_type", "nom_type");
-            Etudiant et = (Etudiant)Session["connectedStudent"];
-
-            // ViewData["type"] = new SelectList(list);
-            Groupe grp = (Groupe)Session["groupe"];
-            GroupeMembre membre = context.GroupeMembres.SingleOrDefault(x => x.id_et == et.cne && x.id_grp==grp.grp_id);
-            var mmbrdecegroupe = context.GroupeMembres.Where(x => x.id_grp == grp.grp_id);
-            foreach(GroupeMembre k in mmbrdecegroupe)
+            if (etd == null)
             {
-                if (k.confirmed == false)
-                {
-                    ViewBag.accord = "veuillez verifier que tous les membre sont accepter ou refuser de rejoindrer le groupe";
-                    return View("archiver");
+                return RedirectToAction("connexion");
+            }
 
-                }
+            var grp = context.groupes.Where(g => g.id_admin == etd.cne && g.grp_id == id).Single();
 
+            if (grp == null)
+            {
+                return RedirectToAction("espaceetudiant");
             }
 
 
-            File existfile = context.files.SingleOrDefault(p => p.groupe_Id == membre.id_grp);
+            ViewBag.Type = list;
+            ViewBag.idgrp = grp.grp_id;
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Archiver(File archive)
+        {
+
+            Etudiant etd = Logged();
+
+
+            if (etd == null)
+            {
+                return RedirectToAction("connexion");
+            }
+
+            var grp2 = context.groupes.Where(g => g.id_admin == etd.cne).Single();
+
+            if (grp2 == null)
+            {
+                return RedirectToAction("Groupes");
+            }
 
             if (Request.Files.Count > 0)
             {
-                //var file = Request.Files[0];
-                
+                var file = Request.Files[0];
+
                 if (file != null && file.ContentLength > 0)
                 {
 
@@ -248,39 +212,16 @@ namespace Projet1_ASP.Controllers
                     archive.Content = memoryStream.ToArray();
                     archive.Name = file.FileName;
                     archive.Length = file.ContentLength;
-                    
 
-
-                    
-                        if (existfile == null)
-                        {
-                            archive.groupe_Id = grp.grp_id;
-                            archive.Type = grp.Type.nom_type ;
-                            context.files.Add(archive);
-                            context.SaveChanges();
-                            
-
-                            ViewBag.file = "vous n'avez pas encore mettez aucun file";
-                        return View("espaceetudiant", et);
+                    if (ModelState.IsValid)
+                    {
+                        var grp = context.groupes.Where(g => g.id_admin == etd.cne).Single();
+                        archive.groupe_Id = grp.grp_id;
+                        archive.Type = grp.Type.nom_type;
+                        context.files.Add(archive);
+                        context.SaveChanges();
+                        return RedirectToAction("espaceetudiant");
                     }
-
-
-                        if (grp == null)
-                        {
-                            ViewBag.file = "vous n avez pas le droit vous etes pas un admin";
-                            return View("espaceetudiant", et);
-                        }
-
-
-
-                        else
-                        {
-                            ViewBag.file = "vous avez le droit d instancier votre fichier qu'une seule fois";
-
-                            return View("espaceetudiant", et);
-
-                        }
-                    
 
 
                 }
@@ -290,62 +231,229 @@ namespace Projet1_ASP.Controllers
 
 
 
-
-
-
-
-
+            ViewBag.idgrp = grp2.grp_id;
             return View();
         }
 
-       
-           [HttpGet]
-            public ActionResult InviterGroupe(Groupe g)
-            {
 
-            
-            Etudiant et = (Etudiant) Session["connectedStudent"] ;
-            Groupe grp = (Groupe)Session["groupe"];
-           
-            var list= context.GroupeMembres.Where(x => x.id_grp ==grp.grp_id).ToList();
-            ViewBag.e = new SelectList(context.etudiants, "cne","nom");
-       
+        [HttpGet]
+        public ActionResult InviterGroupe(int? id)
+        {
+            Etudiant etd = Logged();
+
+
+            if (etd == null)
+            {
+                return RedirectToAction("connexion");
+            }
+
+            var member = context.GroupeMembres.Where(m => m.id_et == etd.cne && m.id_grp == id).Single();
+            if (member == null)
+            {
+                return RedirectToAction("Groupes");
+            }
+
+            var list = member.Groupe.GroupeMembres.ToList();
+            ViewBag.e = new SelectList(context.etudiants, "cne", "nom");
+            ViewBag.idgrp = member.Groupe.grp_id;
+
             return View(list);
 
+        }
+
+
+        [HttpPost]
+        public JsonResult AddToGroup(int? cne)
+        {
+            Etudiant etd = Logged();
+
+
+            if (etd == null)
+            {
+                return Json("forbidden 403", JsonRequestBehavior.AllowGet);
             }
-            
 
-       
+            var x = Request;
+            var grp = context.groupes.Where(g => g.id_admin == etd.cne).Single();
+            var currentGroupMembers = context.GroupeMembres.Where(g => g.id_grp == grp.grp_id);
+            if (currentGroupMembers.Count() > 4)
+            {
+                return Json("full", JsonRequestBehavior.AllowGet);
+            }
+            var selectedStudent = currentGroupMembers.Where(e => e.id_et == cne).Count();
 
-            
-
-                [HttpPost]
-                public JsonResult AddToGroup(int? cne)
+            if (selectedStudent == 0)
+            {
+                GroupeMembre groupe = new GroupeMembre
                 {
-                    Etudiant et = (Etudiant)Session["connectedStudent"];
-                    var x = Request;
-                    Groupe grp = (Groupe)Session["groupe"];
-                    var currentGroupMembers = context.GroupeMembres.Where(g => g.id_et == et.cne);
-                    if(currentGroupMembers.Count() > 4)
-                    {
-                        return Json("full", JsonRequestBehavior.AllowGet);
-                    }
-                    var selectedStudent = currentGroupMembers.Where(e => e.id_et == cne).Count();
+                    id_et = cne,
+                    id_grp = grp.grp_id
+                };
+                context.GroupeMembres.Add(groupe);
+                context.SaveChanges();
+                return Json("added", JsonRequestBehavior.AllowGet);
+            }
 
-                    if (selectedStudent == 0)
-                    {
-                        GroupeMembre groupe = new GroupeMembre
-                        {
-                            id_et = cne,
-                            id_grp = grp.grp_id
-                        };
-                        context.GroupeMembres.Add(groupe);
-                        context.SaveChanges();
-                        return Json("added", JsonRequestBehavior.AllowGet);
-                    }
+            return Json("deja", JsonRequestBehavior.AllowGet);
+        }
 
-                    return Json("deja", JsonRequestBehavior.AllowGet);
-                }
+
+        public ActionResult Groupes()
+        {
+            Etudiant etd = Logged();
+
+
+            if (etd == null)
+            {
+                return RedirectToAction("connexion");
+            }
+
+
+            List<Groupe> list = new List<Groupe>();
+            List<GroupeMembre> listGM = context.GroupeMembres.Where(g => g.id_et == etd.cne && g.confirmed == true).ToList();
+
+            ViewBag.Invitation = context.GroupeMembres.Where(gm => gm.id_et == etd.cne && gm.confirmed == false).ToList();
+
+            foreach (var gm in listGM)
+            {
+                list.Add(gm.Groupe);
+            }
+
+
+            return View(list);
+        }
+
+
+        public ActionResult Groupe(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Groupes");
+            }
+
+            Etudiant etd = Logged();
+            if (etd == null)
+            {
+                return RedirectToAction("connexion");
+            }
+
+            var member = context.GroupeMembres.Where(m => m.id_et == etd.cne && m.id_grp == id).Single();
+            if(member == null)
+            {
+                return RedirectToAction("Groupes");
+            }
+           
+            ViewBag.IsAdmin = etd.cne == member.Groupe.id_admin;
+            return View(member.Groupe);
+        }
+
+        public ActionResult AcceptInvit(string id)
+        {
+
+            Etudiant et = Logged();
+            if (et == null)
+            {
+                return RedirectToAction("connexion");
+            }
+
+            var memberGroup = context.GroupeMembres.Where(g => g.id_et == et.cne && g.token == id).Single();
+            if (memberGroup != null)
+            {
+                memberGroup.confirmed = true;
+                memberGroup.token = "";
+                context.SaveChanges();
+            }
+
+
+            return RedirectToAction("Groupes");
+        }
+
+        public ActionResult RefuseInvit(string id)
+        {
+
+            Etudiant et = Logged();
+            if (et == null)
+            {
+                return RedirectToAction("connexion");
+            }
+
+            var memberGroup = context.GroupeMembres.Where(g => g.id_et == et.cne && g.token == id).Single();
+            if (memberGroup != null)
+            {
+                context.GroupeMembres.Remove(memberGroup);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Groupes");
+        }
+
+
+        [HttpGet]
+
+        public ActionResult NewGroup()
+        {
+            Etudiant etd = Logged();
+
+
+            if (etd == null)
+            {
+                return RedirectToAction("connexion");
+            }
+
+           ViewBag.id_tp = new SelectList(context.types.ToList(), "id_type", "nom_type");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult NewGroup(Groupe grp)
+        {
+
+            var enc = GetIdEncadrant();
+            var etu = Logged();
+
+            if (enc != null)
+            {
+                grp.id_enc = enc.Id;
+                grp.id_admin = etu.cne;
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                Guid g = Guid.NewGuid();
+                string GuidString = Convert.ToBase64String(g.ToByteArray());
+
+                context.groupes.Add(grp);
+                context.SaveChanges();
+                GroupeMembre members = new GroupeMembre()
+                {
+                    confirmed = true,
+                    id_et = grp.id_admin,
+                    id_grp = grp.grp_id,
+                    token = GuidString
+                };
+
+                context.GroupeMembres.Add(members);
+                context.SaveChanges();
+
+                return RedirectToAction("Groupes");
+            }
+
+
+            ViewBag.id_tp = new SelectList(context.types.ToList(), "id_type", "nom_type");
+            return View();
+        }
+
+        public Etudiant Logged()
+        {
+            return Session["connectedStudent"] as Etudiant;
+        }
+
+
+        Encadrant GetIdEncadrant()
+        {
+
+            return context.encadrants.Where(c => c.groupes.Count() < 4).Single();
+        }
 
         public ActionResult notification()
         {
@@ -388,6 +496,14 @@ namespace Projet1_ASP.Controllers
         //information
         public ActionResult byget()
         {
+            Etudiant etd = Logged();
+
+
+            if (etd == null)
+            {
+                return RedirectToAction("connexion");
+            }
+
             ViewBag.type = new SelectList(context.types, "id_type", "nom_type");
             Etudiant x =(Etudiant) Session["connectedStudent"];
             return View("espaceetudiant",x);

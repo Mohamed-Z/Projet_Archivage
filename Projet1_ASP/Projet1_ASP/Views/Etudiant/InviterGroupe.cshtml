@@ -1,27 +1,34 @@
 ﻿@model IEnumerable<Projet1_ASP.Models.GroupeMembre>
+
 @{
     ViewBag.Title = "InviterGroupe";
     Layout = "~/Views/Shared/_MonLayout.cshtml";
 }
 
-<div class="container p-5 m-5">
 
-    <div class="row">
+
+<div class="container border mb-2 p-3 border">
+    <div class="row border-bottom m-1">
+
+        @Html.Partial("_AdminNavBar")
+    </div>
+
+    <div class="row mt-2 p-2">
         <div class="col-md-6">
             <h2>Etudiants de ce groupe</h2>
             <table class="table table-striped">
-                <tr>
+                <thead>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Etat</th>
-                </tr>
+                </thead>
 
-                @foreach (var mm in Model)
+                @foreach (var m in Model)
                 {
                     <tr>
-                        <td>@mm.Etudiant.nom</td>
-                        <td>@mm.Etudiant.prenom</td>
-                        <td>@mm.confirmed</td>
+                        <td>@m.Etudiant.nom</td>
+                        <td>@m.Etudiant.prenom</td>
+                        <td>@m.confirmed</td>
                     </tr>
                 }
             </table>
@@ -31,8 +38,7 @@
             <h3>Inviter des etudiants</h3>
             @Html.DropDownList("invitedEtudiant", ViewBag.e as SelectList, new { @class = "form-control" })
             <br />
-            <button class="btn btn-primary form-control" id="add" name="x" value="ajouter">Ajouter</button>
-            @Html.ActionLink("archiver", "Archiver", "etudiant")
+            <button class="btn btn-primary form-control" id="add">Ajouter</button>
         </div>
     </div>
 
@@ -59,4 +65,5 @@
 
     });
 </script>
+
 
