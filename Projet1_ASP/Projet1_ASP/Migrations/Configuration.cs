@@ -4,6 +4,7 @@ namespace Projet1_ASP.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Projet1_ASP.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Projet1_ASP.Models.SiteContext>
     {
