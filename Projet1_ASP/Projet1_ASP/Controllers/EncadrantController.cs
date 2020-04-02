@@ -104,6 +104,7 @@ namespace Projet1_ASP.Controllers
             List<Groupe> list_groupe = db.groupes.Where(x => x.id_enc == id).ToList();
             List<List<Etudiant>> list_grps = new List<List<Etudiant>>();
             List<int> list_grp_id = new List<int>();
+            List<string> list_type = new List<string>();
             foreach (Groupe groupe in list_groupe)
             {
                 List<GroupeMembre> list_gm = db.GroupeMembres.Where(x => x.id_grp == groupe.grp_id).ToList();
@@ -113,11 +114,13 @@ namespace Projet1_ASP.Controllers
                     Etudiant etudiant = db.etudiants.Find(gm.id_et);
                     list_etudiant.Add(etudiant);
                 }
+                list_type.Add(groupe.Type.nom_type);
                 list_grp_id.Add(groupe.grp_id);
                 list_grps.Add(list_etudiant);
             }
             ViewBag.listids = list_grp_id;
             ViewBag.listgrp = list_grps;
+            ViewBag.listtps = list_type;
             return View(encadrant);
         }
     }

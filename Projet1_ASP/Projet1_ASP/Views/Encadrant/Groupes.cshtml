@@ -35,13 +35,14 @@
                                         int index = 0;
                                         foreach (var i in ViewBag.listgrp)
                                         {
-                                            <div class="col-lg-4 col-md-6 content-item" data-aos="fade-up" data-aos-delay="@inc">
+                                            <div class="col-lg-6 col-md-6 content-item" data-aos="fade-up" data-aos-delay="@inc">
                                             <span>Groupe @ViewBag.listids[index]</span>
-                                            <h4>@i[index].Filiere.Nom_filiere</h4>
-                                            <h4>@i[index].Cycle.nom_Cycle @i[index].Niveau.nom_Niveau</h4>
+                                            <h3>@ViewBag.listtps[index]</h3>
+                                            <p>@i[0].Filiere.Nom_filiere</p>
+                                            <p>@i[0].Niveau.nom_Niveau Cycle @i[0].Cycle.nom_Cycle</p>
                                              @foreach (var j in i)
                                                {
-                                                  <p>j.nom j.prenom</p>
+                                                  <h4>@j.nom @j.prenom </h4>
                                                }
                                              </div>
                                         index += 1;
