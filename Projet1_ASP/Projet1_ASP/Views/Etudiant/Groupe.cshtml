@@ -1,0 +1,39 @@
+﻿@model Projet1_ASP.Models.Groupe
+
+@{
+    ViewBag.Title = "Groupe";
+    Layout = "~/Views/Shared/_MonLayout.cshtml";
+    Boolean admin = ViewBag.IsAdmin;
+
+}
+
+@Scripts.Render("~/bundles/jquery")
+
+
+    <div class="container border mb-2 p-3 border">
+
+
+
+        <h3>Groupe @Model.grp_nom</h3>
+        <h3>Admin groupe :  @Model.Admin.nom @Model.Admin.prenom  (CNE : @Model.Admin.cne)</h3>
+
+        <div class="row justify-content-center ">
+            <div class="col-md-3 m-2 p-2">
+                <a href="/Etudiant/Archiver/@Model.grp_id" class="btn btn-primary @(admin?"":"disabled")">Archiver un fichier</a>
+            </div>
+
+            <div class="col-md-3 m-2 p-2">
+                <a href="#" class="btn btn-primary">Consulter et telechrger</a>
+            </div>
+
+            <div class="col-md-3 m-2 p-2">
+                <a href="/Etudiant/InviterGroupe/@Model.grp_id" class="btn btn-primary @(admin?"":"disabled")">Inviter des members </a>
+            </div>
+        </div>
+        <div class="row">
+            <a href="/Etudiant/Groupes" class="btn btn-default" >Aller a groupes</a>
+        </div>
+
+    </div>
+    
+

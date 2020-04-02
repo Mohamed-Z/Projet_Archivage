@@ -72,13 +72,17 @@ namespace Projet1_ASP.Migrations
                     {
                         grp_id = c.Int(nullable: false, identity: true),
                         id_enc = c.Int(),
+                        grp_nom = c.String(nullable: false),
                         id_tp = c.Int(),
+                        id_admin = c.Int(),
                     })
                 .PrimaryKey(t => t.grp_id)
+                .ForeignKey("dbo.Etudiants", t => t.id_admin)
                 .ForeignKey("dbo.Encadrants", t => t.id_enc)
                 .ForeignKey("dbo.Types", t => t.id_tp)
                 .Index(t => t.id_enc)
-                .Index(t => t.id_tp);
+                .Index(t => t.id_tp)
+                .Index(t => t.id_admin);
             
             CreateTable(
                 "dbo.Encadrants",
@@ -155,11 +159,13 @@ namespace Projet1_ASP.Migrations
             DropForeignKey("dbo.Groupes", "id_tp", "dbo.Types");
             DropForeignKey("dbo.Files", "groupe_Id", "dbo.Groupes");
             DropForeignKey("dbo.Groupes", "id_enc", "dbo.Encadrants");
+            DropForeignKey("dbo.Groupes", "id_admin", "dbo.Etudiants");
             DropForeignKey("dbo.GroupeMembres", "id_et", "dbo.Etudiants");
             DropForeignKey("dbo.Etudiants", "id_fil", "dbo.Filieres");
             DropForeignKey("dbo.Etudiants", "id_cyc", "dbo.Cycles");
             DropIndex("dbo.Niveaux", new[] { "code_cyc" });
             DropIndex("dbo.Files", new[] { "groupe_Id" });
+            DropIndex("dbo.Groupes", new[] { "id_admin" });
             DropIndex("dbo.Groupes", new[] { "id_tp" });
             DropIndex("dbo.Groupes", new[] { "id_enc" });
             DropIndex("dbo.GroupeMembres", new[] { "id_et" });
