@@ -17,7 +17,7 @@
     <div style="margin-left: auto;margin-right: auto">
         <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto;background-image: url('Content/img/slide/slide-1.jpg');">
             @ViewBag.niv<br />
-   
+
             @using (Html.BeginForm("inscription",
                         "Etudiant",
                         FormMethod.Post,
@@ -60,6 +60,12 @@
                     <label for="exampleInputPassword1">Password</label>
                     @Html.PasswordFor(m => m.password, new { @class = "form-control", @placeholder = "Password" })
                     @Html.ValidationMessageFor(x => x.password, "", new { @style = "color:red" })
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">confirmation</label>
+                    @Html.PasswordFor(m => m.confirmation, new { @class = "form-control", @placeholder = "Password" })
+                    @Html.ValidationMessageFor(x => x.confirmation, "", new { @style = "color:red" })
                 </div>
 
                 <br />
