@@ -14,7 +14,7 @@
     </div>
     <div class="container">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Bonjour Mohamed Zidani!</strong>
+            <strong>Bonjour @ViewData["prenom"] @ViewData["nom"] !</strong>
             @{ if (Model.liste_type.Count != 0)
                 {<p> Ici vous pouvez consulter vos rapports .</p> }
              else {<p> OOPS !! Vous avez pas encore aucun archive .</p>} }
