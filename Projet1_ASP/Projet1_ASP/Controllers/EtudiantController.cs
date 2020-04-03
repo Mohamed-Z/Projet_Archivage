@@ -522,4 +522,3 @@ namespace Projet1_ASP.Controllers
         }
     
  }
-}
