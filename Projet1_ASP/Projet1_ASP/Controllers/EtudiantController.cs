@@ -341,12 +341,15 @@ namespace Projet1_ASP.Controllers
             
 
                     if (selectedStudent == 0)
-                    {
+                    {DateTime localDate = DateTime.Now;
                         GroupeMembre groupe = new GroupeMembre
                         {
                             id_et = cne,
-                            id_grp = grp.grp_id
-                        };
+                            id_grp = grp.grp_id,
+                            
+                         date = Convert.ToString(localDate),
+
+            };
                bool typeexiste = false;
 
                 foreach (GroupeMembre k in grpmembretypeexiste) {
