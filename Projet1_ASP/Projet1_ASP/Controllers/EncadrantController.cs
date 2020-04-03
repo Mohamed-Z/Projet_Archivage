@@ -126,5 +126,12 @@ namespace Projet1_ASP.Controllers
             ViewBag.listtps = list_type;
             return View(encadrant);
         }
+
+        public PartialViewResult AfficherDetails()
+        {
+            String word = Request.Form["search"];
+            ViewBag.wd = word;
+            return PartialView("_AfficherDetails");
+        }
     }
 }
