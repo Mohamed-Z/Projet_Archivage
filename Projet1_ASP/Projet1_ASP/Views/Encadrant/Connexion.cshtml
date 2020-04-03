@@ -18,31 +18,33 @@
             <div class="col-lg-6 d-flex flex-column justify-content-center about-content">
 
                 <span class="section-title">
-                    <h2>Espace Encadrant</h2>
+                    <h2>Connexion de l'encadrant</h2>
 
 
                     @using (Html.BeginForm())
                     {
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email</label>
+                            <label for="exampleInputEmail1">E-mail</label>
                             @Html.TextBox("email", null, new { @class = "form-control " + ViewBag.erreur, @placeholder = "Email" })
+                            <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</small>
 
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Mot de passe</label>
                             @Html.Password("password", null, new { @class = "form-control " + ViewBag.erreur, @placeholder = "Mot de passe" })
                         </div>
-                        <button type="submit" name="seconnecter" value="encadrant" class="btn btn-primary">Valider</button>
+                        <button type="submit" name="seconnecter" value="encadrant" class="btn btn-primary">S'authentifier</button>
                     }
                     <br />
 
-                    @Html.ActionLink("s'inscrire", "Inscription", "Encadrant")
+                    <label>Vous ne disposez pas d'un compte?</label>
+                    @Html.ActionLink("S'inscrire ici", "Inscription", "Encadrant")
                     </br>
                     <span style="color:red">
                         @ViewBag.msg
                     </span>
 
-            </div>
+</div>
 
 
 

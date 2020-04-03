@@ -28,14 +28,19 @@
     </div>
    
 
-
-    <div style="height:400px;width:400px ;background-color:lightblue ;margin-right:auto;margin-left:auto">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Bienvenue <strong>@Model.prenom @Model.nom</strong>.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div style="height:300px;width:300px ;background-color:lightblue ;margin-right:auto;margin-left:auto">
 
         @{if (Model.photo != null)
             {
                 var base64 = Convert.ToBase64String(@Model.photo);
                 var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                <img src="@imgSrc" style="height:400px;width:400px" />
+                <img src="@imgSrc" style="height:300px;width:300px" />
             }
             else {
                 <img src="~/Content/img/user.png"style="height:400px;width:400px" />}
@@ -46,13 +51,15 @@
     </div>
     <section id="etudiant" class="about">
         <div>
-
+            <h4 style="color:firebrick" align="center">Vos Informations personnelles</h4>
         </div>
         <div style="margin-left: auto;margin-right: auto">
             <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto;background-image: url('Content/img/slide/slide-1.jpg');">
 
+                
                 @using (Html.BeginForm("inscription", "Etudiant", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+
                     <div class="form-group">
                         <label for="exampleInputPassword1">CNE</label>
                         @Html.TextBoxFor(m => m.cne, new { @class = "form-control", @placeholder = @Model.cne, @disabled = "disabled" })
@@ -66,36 +73,35 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputPassword1">PRENOM</label>
+                        <label for="exampleInputPassword1">Prénom</label>
                         @Html.TextBoxFor(m => m.prenom, new { @class = "form-control", @placeholder = @Model.prenom, @disabled = "disabled" })
 
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">email</label>
+                        <label for="exampleInputEmail1">E-mail</label>
                         @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = @Model.email, @disabled = "disabled" })
 
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
 
 
 
                     <div class="form-group">
-                        <label for="exampleInputPassword1">date de naissance</label>
+                        <label for="exampleInputPassword1">Date de naissance</label>
                         @Html.TextBoxFor(m => m.date_naiss, new { @class = "form-control", @placeholder = @Model.date_naiss, @disabled = "disabled" })
 
                     </div>
 
                     <br />
-                    <label for="exampleInputPassword1">FILIERE</label>
+                    <label for="exampleInputPassword1">Filière</label>
                     @Html.TextBoxFor(x => x.Filiere.Nom_filiere, new { @class = "form-control", @placeholder = @Model.Filiere.Nom_filiere, @disabled = "disabled" })
 
                     <br />
-                    <label for="exampleInputPassword1">CYCLE</label>
+                    <label for="exampleInputPassword1">Cycle</label>
                     @Html.TextBoxFor(x => x.Cycle.nom_Cycle, new { @class = "form-control", @placeholder = @Model.Cycle.nom_Cycle, @disabled = "disabled" })
 
                     <br />
-                    <label for="exampleInputPassword1"></label>
+                    <label for="exampleInputPassword1">Niveau</label>
                     @Html.TextBoxFor(x => x.Niveau.nom_Niveau, new { @class = "form-control", @placeholder = @Model.Niveau.nom_Niveau, @disabled = "disabled" })
 
 

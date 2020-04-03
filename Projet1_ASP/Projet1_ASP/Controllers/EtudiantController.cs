@@ -228,7 +228,7 @@ namespace Projet1_ASP.Controllers
             {
                 if (k.confirmed == false)
                 {
-                    ViewBag.accord = "veuillez verifier que tous les membre sont accepter ou refuser de rejoindrer le groupe";
+                    ViewBag.accord = "Veuillez verifier que tous les membres ont accepté de rejoindrer votre groupe";
                     return View("archiver");
 
                 }
@@ -258,18 +258,19 @@ namespace Projet1_ASP.Controllers
                     {
                         archive.groupe_Id = grp.grp_id;
                         archive.Type = grp.Type.nom_type;
+                        archive.date_disp = DateTime.Now.ToString();
                         context.files.Add(archive);
                         context.SaveChanges();
 
 
-                        ViewBag.file = "votre file est chargé avec succées";
+                        ViewBag.file = "Votre rapport a été déposé avec succées";
                         return View("espaceetudiant", et);
                     }
 
 
                     if (grp == null)
                     {
-                        ViewBag.file = "vous n avez pas le droit vous etes pas un admin";
+                        ViewBag.file = "vous n avez pas le droit/vous n'étes pas un admin";
                         return View("Archiver", et);
                     }
 
@@ -277,7 +278,7 @@ namespace Projet1_ASP.Controllers
 
                     else
                     {
-                        ViewBag.file = "vous avez le droit d instancier votre fichier qu'une seule fois";
+                        ViewBag.file = "vous n'avez le droit d instancier votre fichier qu'une seule fois";
 
                         return View("espaceetudiant", et);
 
