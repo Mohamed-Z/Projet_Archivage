@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Projet1_ASP.Models.GroupeMembre>
 @{
-    ViewBag.Title = "InviterGroupe";
+    ViewBag.Title = "Création de Groupe";
     Layout = "~/Views/Shared/_MonLayout.cshtml";
 }
 
@@ -9,9 +9,9 @@
     <div class="row border-bottom m-1">
         @Html.Partial("_GroupeNavBar")
 
-    </div>
+    </div><br />
 
-    <h3 align="center" >Créer votre groupe</h3>
+    <h2 align="center">Créer votre groupe</h2><br />
     <div class="container p-3 m-2">
 
         <div class="row">
@@ -20,7 +20,7 @@
                 <table class="table table-striped">
                     <tr>
                         <th>Nom</th>
-                        <th>Prenom</th>
+                        <th>Prénom</th>
                         <th>Etat</th>
                     </tr>
 
@@ -36,14 +36,16 @@
             </div>
             <div class="col-md-6">
 
-                <h5 align="center">Inviter des etudiants</h5>
+                <h5 align="center">Inviter des étudiants</h5>
                 @Html.DropDownList("invitedEtudiant", ViewBag.e as SelectList, new { @class = "form-control" })
                 <br />
-                <button class="btn btn-primary" id="add" name="x" value="ajouter">Ajouter</button>
-
+                <div align="center">
+                    <button class="btn btn-primary" id="add" name="x" value="ajouter">Inviter</button>
+                </div>
             </div>
 
-        </div><br /><br /><br />
+        </div><br /><br />
+        <small>N.B: vous ne pouvez déposer un projet jusqu'à ce que tous les membres invités ont accepté la demande d'invitation.</small><br /><br />
         <div align="center" style="border:double">
             @Html.ActionLink("Archiver un projet", "Archiver", "etudiant")
         </div>
