@@ -143,6 +143,7 @@
     <Compile Include="Models\Groupe.cs" />
     <Compile Include="Models\GroupeMembre.cs" />
     <Compile Include="Models\Niveau.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\SiteContext.cs" />
     <Compile Include="Models\SuperUser.cs" />
     <Compile Include="Models\Type.cs" />
