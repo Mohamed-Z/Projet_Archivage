@@ -31,12 +31,17 @@
 
     <div style="height:400px;width:400px ;background-color:lightblue ;margin-right:auto;margin-left:auto">
 
-        @{
-            var base64 = Convert.ToBase64String(@Model.photo);
-            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        @{if (Model.photo != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.photo);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <img src="@imgSrc" style="height:400px;width:400px" />
+            }
+            else {
+                <img src="~/Content/img/user.png"style="height:400px;width:400px" />}
         }
 
-        <img src="@imgSrc" style="height:400px;width:400px" />
+               
 
     </div>
     <section id="etudiant" class="about">

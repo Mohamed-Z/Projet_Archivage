@@ -134,6 +134,7 @@
       <DependentUpon>202004030732489_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ArchiveDetailsViewModel.cs" />
     <Compile Include="Models\Cycle.cs" />
     <Compile Include="Models\Encadrant.cs" />
     <Compile Include="Models\Etudiant.cs" />
@@ -173,6 +174,7 @@
     <Content Include="Content\img\team\team-2.jpg" />
     <Content Include="Content\img\team\team-3.jpg" />
     <Content Include="Content\img\team\team-4.jpg" />
+    <Content Include="Content\img\user.png" />
     <Content Include="Content\js\main.js" />
     <Content Include="Content\style.css" />
     <Content Include="Content\vendor\animate.css\animate.css" />
@@ -267,6 +269,7 @@
     <Content Include="Views\Encadrant\Groupes.cshtml" />
     <Content Include="Views\Etudiant\Crrer_Groupe.cshtml" />
     <Content Include="Views\Shared\_GroupeNavBar.cshtml" />
+    <Content Include="Views\Etudiant\Archive_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
