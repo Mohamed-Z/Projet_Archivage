@@ -468,7 +468,9 @@ namespace Projet1_ASP.Controllers
             //recuperation des id des groupes ou lesquelles apaprtient un etudiant pour les utiliser afin de determiner les rapports
             //et les encaadrants
             Etudiant etud = (Etudiant)Session["connectedStudent"];
-
+            ViewData["nom"] = etud.nom;
+            ViewData["prenom"] = etud.prenom;
+            
             x = (List<int>)(context.GroupeMembres.Where(g => g.id_et == etud.cne).Select(g => g.id_grp)).Cast<int>().ToList();
             foreach (int i in x)
             {
