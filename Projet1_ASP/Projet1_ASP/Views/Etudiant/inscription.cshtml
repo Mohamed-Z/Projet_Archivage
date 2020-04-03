@@ -36,25 +36,25 @@
                         new { enctype = "multipart/form-data" }))
             {
                 <div class="form-group">
-                    <label for="exampleInputPassword1">CNE</label>
+                    <label for="exampleInputPassword1">CNE*</label>
                     @Html.TextBoxFor(m => m.cne, new { @class = "form-control", @placeholder = "Cne" })
                     @Html.ValidationMessageFor(x => x.cne, "", new { @style = "color:red" })
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Nom</label>
+                    <label for="exampleInputPassword1">Nom*</label>
                     @Html.TextBoxFor(m => m.nom, new { @class = "form-control", @placeholder = "Nom" })
                     @Html.ValidationMessageFor(x => x.nom, "", new { @style = "color:red" })
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Prénom</label>
+                    <label for="exampleInputPassword1">Prénom*</label>
                     @Html.TextBoxFor(m => m.prenom, new { @class = "form-control", @placeholder = "Entrer prenom" })
                     @Html.ValidationMessageFor(x => x.prenom, "", new { @style = "color:red" })
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">E-mail</label>
+                    <label for="exampleInputEmail1">E-mail*</label>
                     @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = "Entrer Email" })
                     @Html.ValidationMessageFor(x => x.email, "", new { @style = "color:red" })
                     <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</small>
@@ -63,7 +63,7 @@
 
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Date de naissance</label>
+                    <label for="exampleInputPassword1">Date de naissance*</label>
                     <div class="container">
                         <div class="row">
 
@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Mot de passe</label>
+                    <label for="exampleInputPassword1">Mot de passe*</label>
                     @Html.PasswordFor(m => m.password, new { @class = "form-control", @placeholder = "Password" })
                     @Html.ValidationMessageFor(x => x.password, "", new { @style = "color:red" })
                 </div>
@@ -93,25 +93,29 @@
                 </div>
 
                 <br />
-                <label for="exampleInputPassword1">Filière</label>
+                <label for="exampleInputPassword1">Filière*</label>
                 @Html.DropDownListFor(m => m.id_fil, ViewBag.fil as SelectList, "selectionner une filiere", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.id_fil, "Veuillez choisir la filiere", new { @style = "color:red" })
+                @Html.ValidationMessageFor(x => x.id_fil, "Veuillez choisir votre filiere", new { @style = "color:red" })
 
                 <br />
 
-                <label for="exampleInputPassword1">Cycle</label>
+                <label for="exampleInputPassword1">Cycle*</label>
                 @Html.DropDownListFor(m => m.id_cyc, ViewBag.cycle as SelectList, "selectionner un cycle", new { id = "s", @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.id_cyc, "Veuillez choisir le cycle", new { @style = "color:red" })
                 <br />
-                <label for="exampleInputPassword1">Niveau</label>
+                <label for="exampleInputPassword1">Niveau*</label>
                 @Html.DropDownListFor(m => m.id_niv, Enumerable.Empty<SelectListItem>(), "selectionner un niveau", new { id = "c", @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.id_niv, "Veuillez choisir le niveau", new { @style = "color:red" })
                 <br /><br />
-                <label for="exampleInputPassword1">Photo d'itentité (facultatif)</label><br />
-                <input type="file" name="file" id="file" /><br><br>
-                <div align="center">
-                    <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary">S'inscrire</button>
-                </div>
+                      <div >
+                          <label>Photo d'itentité </label><br />
+                          <input type="file" name="file" id="file" /><br><br>
+                      </div>
+                
+                    <div align="right" style="color:maroon; font-style:italic">
+                        <h6>* Champ Obligatoire</h6>
+                    </div>
+                    <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary form-control">S'inscrire</button>
             }
 
 
