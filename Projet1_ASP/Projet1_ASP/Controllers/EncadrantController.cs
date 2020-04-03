@@ -1,6 +1,7 @@
 ﻿using Projet1_ASP.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -52,6 +53,7 @@ namespace Projet1_ASP.Controllers
                 encadrant.nbr_grp = 0;
                 db.encadrants.Add(encadrant);
                 db.SaveChanges();
+                 Session["alert"] = true;
                 Session["id"] = encadrant.Id;
                 return RedirectToAction("EspaceEncadrant");
             }
@@ -129,9 +131,57 @@ namespace Projet1_ASP.Controllers
 
         public PartialViewResult AfficherDetails()
         {
-            String word = Request.Form["search"];
-            ViewBag.wd = word;
-            return PartialView("_AfficherDetails");
+            string word = Request.Form["search"];
+            string rech = Request.Form["rech"];
+            if (word == "") {
+                word = "00000000000000";
+            }
+            if (rech == null)
+            {
+                rech = "description";
+            }
+            int id = Convert.ToInt32(Session["id"]);
+            Encadrant encadrant = db.encadrants.Find(id);
+            /*
+            if (rech == "sujet")
+            {
+                var x = db.groupes.Where(g => g.id_enc == id).ToList();
+                foreach(Groupe i in x)
+                {
+                    var y = db.GroupeMembres.Where(p => p.id_grp == i.grp_id).ToList();
+                    Models.Type type = db.types.Find(i.id_tp);
+                    File f = db.files.Where(p => p.groupe_Id == i.grp_id && p.sujet.StartsWith(rech)).SingleOrDefault();
+                }
+            }
+            */
+
+
+            SearchModel sm = new SearchModel(id);
+
+            sm.searchBy(rech, word);
+            
+
+            return PartialView("_AfficherDetails",sm);
+        }
+
+        public ActionResult Get(int id)
+        {
+
+            SiteContext db = new SiteContext();
+            Models.File file = db.files.Find(id);
+
+            //If file exists....
+
+            MemoryStream ms = new MemoryStream(file.Content, 0, 0, true, true);
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "inline;filename=" + file.Name);
+            Response.Buffer = true;
+            Response.Clear();
+            Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
+            Response.OutputStream.Flush();
+            Response.End();
+            return new FileStreamResult(Response.OutputStream, "application/pdf");
+
         }
     }
 }
