@@ -22,11 +22,12 @@ namespace Projet1_ASP.Controllers
                     new SelectListItem{ Text="Stage d'application", Value = "Stage d'application" },
                 };
 
-
+       
         // GET: Etudiant
         SiteContext context = new SiteContext();
 
 
+        #region Inscription Etudiant
         // inscription 
         public ActionResult inscription()
         {
@@ -53,9 +54,6 @@ namespace Projet1_ASP.Controllers
 
         public ActionResult inscription(Etudiant e, HttpPostedFileBase file)
         {
-
-
-
 
             if (ModelState.IsValid == false)
             {
@@ -90,14 +88,12 @@ namespace Projet1_ASP.Controllers
             return RedirectToAction("index", "Home", e);
 
         }
+        #endregion
 
 
 
-
+        #region Authentification Etudiant
         //connexion
-
-
-
 
         public ActionResult connexion()
         {
@@ -126,6 +122,11 @@ namespace Projet1_ASP.Controllers
             return View();
         }
 
+        #endregion
+
+
+
+        #region Espace Etudiant
         //espace etudiant 
         [HttpGet]
         public ActionResult espaceetudiant(Etudiant x)
@@ -136,8 +137,6 @@ namespace Projet1_ASP.Controllers
             ViewBag.fil = new SelectList(context.filieres, "Id_filiere", "Nom_filiere");
             ViewBag.cycle = new SelectList(context.cycles, "id_Cycle", "nom_Cycle");
             //  ViewBag.type = new SelectList(context.types, "id_type", "nom_type");
-
-
 
             return View(x);
 
@@ -199,8 +198,11 @@ namespace Projet1_ASP.Controllers
             return RedirectToAction("inviterGroupe");
 
         }
+        #endregion
+        
 
 
+        #region Archiver
         // a traiter 
 
         public ActionResult Archiver()
@@ -289,19 +291,13 @@ namespace Projet1_ASP.Controllers
                 }
             }
 
-
-
-
-
-
-
-
-
-
             return View();
         }
+        #endregion
 
 
+
+        #region Création des Groupes
         [HttpGet]
         public ActionResult InviterGroupe(Groupe g)
         {
@@ -383,7 +379,11 @@ namespace Projet1_ASP.Controllers
             return Json("deja", JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
+        
 
+
+        #region Notifications des Invitations
         public ActionResult notification()
         {
             ViewBag.erreur = "";
@@ -429,6 +429,12 @@ namespace Projet1_ASP.Controllers
 
             return View();
         }
+
+        #endregion
+
+
+
+
         //information
         public ActionResult byget()
         {
@@ -436,6 +442,10 @@ namespace Projet1_ASP.Controllers
             Etudiant x = (Etudiant)Session["connectedStudent"];
             return View("espaceetudiant", x);
         }
+
+
+
+        #region Deconnexion
         //deconnexion
         public ActionResult Deconnexion()
         {
@@ -444,7 +454,10 @@ namespace Projet1_ASP.Controllers
             return RedirectToAction("Connexion");
         }
 
-        //********* Tache_Archive_Detaisl *********//
+        #endregion
+
+
+        #region Détails des Archives
 
         //Variable globales
         List<Models.File> liste_fichiers = new List<Models.File>();
@@ -515,11 +528,15 @@ namespace Projet1_ASP.Controllers
             return View(archive);
         }
 
+        #endregion
+
+
+
+        //Action pour recuperer le rapport de le BD
         [HttpGet]
         public ActionResult GetFile(int ID)
         {
-
-            //Recuperer le rapport
+            
             Models.File file = context.files.Find(ID);
 
             //If file exists....

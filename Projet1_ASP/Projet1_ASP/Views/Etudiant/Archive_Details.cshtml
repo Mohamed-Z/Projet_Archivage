@@ -14,10 +14,10 @@
     </div>
     <div class="container">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Bonjour @ViewData["prenom"] @ViewData["nom"] !</strong>
+            <strong>Bienvenue @ViewData["prenom"] @ViewData["nom"] !</strong>
             @{ if (Model.liste_type.Count != 0)
-                {<p> Ici vous pouvez consulter vos rapports .</p> }
-             else {<p> OOPS !! Vous avez pas encore aucun archive .</p>} }
+                {<p> Vous pouvez consulter vos rapports ici.</p> }
+             else {<p> OOPS !! Vous n'avez aucun archive pour le moment.</p>} }
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -34,7 +34,7 @@
                             Sujet
                         </th>
                         <th>
-                            Date de disposition
+                            Date de déposition
                         </th>
                         <th>
                             Encadrant
