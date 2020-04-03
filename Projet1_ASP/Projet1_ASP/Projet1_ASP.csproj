@@ -129,9 +129,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004022101013_InitialCreate.cs" />
-    <Compile Include="Migrations\202004022101013_InitialCreate.Designer.cs">
-      <DependentUpon>202004022101013_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202004030732489_InitialCreate.cs" />
+    <Compile Include="Migrations\202004030732489_InitialCreate.Designer.cs">
+      <DependentUpon>202004030732489_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cycle.cs" />
@@ -265,10 +265,8 @@
     <Content Include="Views\Encadrant\Modifier.cshtml" />
     <Content Include="Views\Etudiant\notification.cshtml" />
     <Content Include="Views\Encadrant\Groupes.cshtml" />
-    <Content Include="Views\Etudiant\Groupe.cshtml" />
-    <Content Include="Views\Etudiant\Groupes.cshtml" />
-    <Content Include="Views\Shared\_AdminNavBar.cshtml" />
-    <Content Include="Views\Etudiant\NewGroup.cshtml" />
+    <Content Include="Views\Etudiant\Crrer_Groupe.cshtml" />
+    <Content Include="Views\Shared\_GroupeNavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -288,8 +286,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004022101013_InitialCreate.resx">
-      <DependentUpon>202004022101013_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004030732489_InitialCreate.resx">
+      <DependentUpon>202004030732489_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

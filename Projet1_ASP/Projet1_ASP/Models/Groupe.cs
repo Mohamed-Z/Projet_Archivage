@@ -21,19 +21,11 @@ namespace Projet1_ASP.Models
 
         [ForeignKey("Encadrant")]
         public Nullable<int> id_enc { get; set; }
-
-        [Required]
-        public string grp_nom { get; set; }
-
         public virtual Encadrant Encadrant { get; set; }
 
         [ForeignKey("Type")]
         public Nullable<int> id_tp { get; set; }
         public virtual Type Type { get; set; }
-
-        [ForeignKey("Admin")]
-        public Nullable<int> id_admin { get; set; }
-        public virtual Etudiant Admin { get; set; }
 
         public virtual File File { get; set; }
     }

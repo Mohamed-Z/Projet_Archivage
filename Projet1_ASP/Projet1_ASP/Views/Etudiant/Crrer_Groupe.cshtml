@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Crrer_Groupe";
+    Layout = "~/Views/Shared/_MonLayout.cshtml";
+}
+<div class="container border mb-2 p-3 border">
+
+    <div class="row border-bottom m-1">
+        @Html.Partial("_GroupeNavBar")
+
+    </div>
+
+    <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto">
+        @using (Html.BeginForm("espaceetudiant", "Etudiant", FormMethod.Post))
+        {
+            <label for="exampleInputPassword1">Choisisez le type de votre projet</label>
+            @Html.DropDownList("type", ViewBag.type as SelectList, "selectionner un type ", new { @class = "form-control" })
+            <button style="margin-left: auto;margin-right: auto" type="submit" name="creation" value="etudiant" class="btn btn-primary">creer un groupe/archiver/ajouter des membre</button>
+        }
+    </div>
+    <div class="float-right">instruction:<br/>
+        </div><br>
+
+</div>

@@ -1,69 +1,72 @@
 ﻿@model IEnumerable<Projet1_ASP.Models.GroupeMembre>
-
 @{
     ViewBag.Title = "InviterGroupe";
     Layout = "~/Views/Shared/_MonLayout.cshtml";
 }
 
-
-
 <div class="container border mb-2 p-3 border">
+
     <div class="row border-bottom m-1">
+        @Html.Partial("_GroupeNavBar")
 
-        @Html.Partial("_AdminNavBar")
     </div>
 
-    <div class="row mt-2 p-2">
-        <div class="col-md-6">
-            <h2>Etudiants de ce groupe</h2>
-            <table class="table table-striped">
-                <thead>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Etat</th>
-                </thead>
 
-                @foreach (var m in Model)
-                {
+    <div class="container p-5 m-5">
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Etudiants de ce groupe</h2>
+                <table class="table table-striped">
                     <tr>
-                        <td>@m.Etudiant.nom</td>
-                        <td>@m.Etudiant.prenom</td>
-                        <td>@m.confirmed</td>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Etat</th>
                     </tr>
-                }
-            </table>
-        </div>
-        <div class="col-md-6">
 
-            <h3>Inviter des etudiants</h3>
-            @Html.DropDownList("invitedEtudiant", ViewBag.e as SelectList, new { @class = "form-control" })
-            <br />
-            <button class="btn btn-primary form-control" id="add">Ajouter</button>
+                    @foreach (var mm in Model)
+                    {
+                        <tr>
+                            <td>@mm.Etudiant.nom</td>
+                            <td>@mm.Etudiant.prenom</td>
+                            <td>@mm.confirmed</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="col-md-6">
+
+                <h3>Inviter des etudiants</h3>
+                @Html.DropDownList("invitedEtudiant", ViewBag.e as SelectList, new { @class = "form-control" })
+                <br />
+                <button class="btn btn-primary form-control" id="add" name="x" value="ajouter">Ajouter</button>
+                @Html.ActionLink("archiver", "Archiver", "etudiant")
+            </div>
         </div>
+
     </div>
 
-</div>
 
+    <script>
 
-<script>
+        $("#add").click(function () {
 
-    $("#add").click(function () {
+            console.log($('#invitedEtudiant').val());
+            $.post("/etudiant/AddToGroup", { cne: $('#invitedEtudiant').val() },
+                function (data) {
+                    switch (data) {
+                        case 'full': alert("groupe plein"); break;
+                        case 'deja': alert("Etdiant exist deja dans le groupe"); break;
+                        case 'added': alert("Etudiant ajouter avec succes"); location.reload();break;
+                        case 'autregroupe': alert("vous pouvez pas ajouter cette personne parcequ'elle a deja accepter d'entrer a un groupe");
+                            location.reload();
+                            break;
+                    }
 
-        console.log($('#invitedEtudiant').val());
-        $.post("/etudiant/AddToGroup", { cne: $('#invitedEtudiant').val() },
-            function (data) {
-                switch (data) {
-                    case 'full': alert("groupe plein"); break;
-                    case 'deja': alert("Etdiant exist deja dans le groupe"); break;
-                    case 'added': alert("Etudiant ajouter avec succes");
-                        location.reload();
-                        break;
                 }
+            );
 
-            }
-        );
+        });
+    </script>
 
-    });
-</script>
-
-
+    </div>

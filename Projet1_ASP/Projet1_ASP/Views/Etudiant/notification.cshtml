@@ -5,62 +5,76 @@
     ViewBag.Title = "notification";
     Layout = "~/Views/Shared/_MonLayout.cshtml";
 }
-@ViewBag.erreur
-@using (Html.BeginForm())
-{
-<div class="container p-5 m-5">
-
-    <div class="row">
-        <div class="col-md-6">
-            <h2>des groupes a rejoindre</h2>
 
 
-            @{
-                Projet1_ASP.Models.Etudiant et = (Projet1_ASP.Models.Etudiant)Session["connectedStudent"];
-                Projet1_ASP.Models.SiteContext context = new Projet1_ASP.Models.SiteContext();
-                var pasdereponse = context.GroupeMembres.Where(x => x.id_et == et.cne && x.confirmed == false);
 
-                foreach (var k in pasdereponse)
-                {
+<div class="container border mb-2 p-3 border">
 
-                    int grp = (int)k.id_grp;
+    <div class="row border-bottom m-1">
+        @Html.Partial("_GroupeNavBar")
 
-                    Session["thatgroup"] = context.groupes.SingleOrDefault(x => x.grp_id == grp);
-                    Projet1_ASP.Models.Groupe g = (Projet1_ASP.Models.Groupe)Session["thatgroup"];
-                    var toadd = context.GroupeMembres.Where(x => x.id_grp == grp);
+    </div>
+    <div style="color:red">
+        @ViewBag.erreur
+       
+       </div>
+    
+    @using (Html.BeginForm())
+    {
+        <div class="container p-5 m-5">
 
-                    <h3>@g.Type.nom_type</h3>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Etat</th>
-                        </tr>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>des groupes a rejoindre</h2>
 
 
-                        @foreach (var j in toadd)
+                    @{
+                        Projet1_ASP.Models.Etudiant et = (Projet1_ASP.Models.Etudiant)Session["connectedStudent"];
+                        Projet1_ASP.Models.SiteContext context = new Projet1_ASP.Models.SiteContext();
+                        var pasdereponse = context.GroupeMembres.Where(x => x.id_et == et.cne && x.confirmed == false);
+
+                        foreach (var k in pasdereponse)
                         {
-                            <tr>
-                                <td>@j.Etudiant.nom</td>
-                                <td>@j.Etudiant.prenom</td>
-                                <td>@j.confirmed</td>
-                            </tr>
+
+                            int grp = (int)k.id_grp;
+
+                            Session["thatgroup"] = context.groupes.SingleOrDefault(x => x.grp_id == grp);
+                            Projet1_ASP.Models.Groupe g = (Projet1_ASP.Models.Groupe)Session["thatgroup"];
+                            var toadd = context.GroupeMembres.Where(x => x.id_grp == grp);
+
+                            <h3>@g.Type.nom_type</h3>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>Etat</th>
+                                </tr>
+
+
+                                @foreach (var j in toadd)
+                                {
+                                    <tr>
+                                        <td>@j.Etudiant.nom</td>
+                                        <td>@j.Etudiant.prenom</td>
+                                        <td>@j.confirmed</td>
+                                    </tr>
+                                }
+
+                            </table>
+                            <button type="submit" name="valider" value="@grp" class="btn btn-primary">Valider</button>
+                            <button type="submit" name="refuser" value="@grp" class="btn btn-primary">refuser</button>
+
                         }
 
-                    </table>
-                    <button type="submit" name="valider" value="@grp" class="btn btn-primary">Valider</button>
-                    <button type="submit" name="refuser" value="@grp" class="btn btn-primary">refuser</button>
-
-                }
 
 
 
-
-            }
+                    }
+                </div>
+            </div>
         </div>
-    </div>
+
+
+
+    }
 </div>
-
-
-
-}
