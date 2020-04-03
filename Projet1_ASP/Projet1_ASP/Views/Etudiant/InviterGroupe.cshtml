@@ -39,8 +39,10 @@
                 <h3>Inviter des etudiants</h3>
                 @Html.DropDownList("invitedEtudiant", ViewBag.e as SelectList, new { @class = "form-control" })
                 <br />
-                <button class="btn btn-primary form-control" id="add" name="x" value="ajouter">Ajouter</button>
-                @Html.ActionLink("archiver", "Archiver", "etudiant")
+                <button class="btn btn-primary form-control" id="add" name="x" value="ajouter">Ajouter</button><br /><br />
+                <div align="center">
+                @Html.ActionLink("Archiver un projet", "Archiver", "etudiant")
+                </div>
             </div>
         </div>
 

@@ -8,7 +8,7 @@ namespace Projet1_ASP.Models
 {
     public class SiteContext : DbContext
     {
-        public SiteContext() : base("name=SiteContext")
+        public SiteContext() : base("name=MySiteContext")
         {
 
         }

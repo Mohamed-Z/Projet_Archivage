@@ -47,13 +47,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">PRENOM</label>
+                    <label for="exampleInputPassword1">Prénom</label>
                     @Html.TextBoxFor(m => m.prenom, new { @class = "form-control", @placeholder = "Entrer prenom" })
                     @Html.ValidationMessageFor(x => x.prenom, "", new { @style = "color:red" })
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">email</label>
+                    <label for="exampleInputEmail1">E-mail</label>
                     @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = "Entrer Email" })
                     @Html.ValidationMessageFor(x => x.email, "", new { @style = "color:red" })
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -62,7 +62,7 @@
 
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">date de naissance</label>
+                    <label for="exampleInputPassword1">Date de naissance</label>
                     <div class="container">
                         <div class="row">
                             
@@ -80,19 +80,19 @@
                 </div>
 
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
+                                    <label for="exampleInputPassword1">Mot de passe</label>
                                     @Html.PasswordFor(m => m.password, new { @class = "form-control", @placeholder = "Password" })
                                     @Html.ValidationMessageFor(x => x.password, "", new { @style = "color:red" })
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">confirmation</label>
+                                    <label for="exampleInputPassword1">Confirmation du mot de passe</label>
                                     @Html.PasswordFor(m => m.confirmation, new { @class = "form-control", @placeholder = "Password" })
                                     @Html.ValidationMessageFor(x => x.confirmation, "", new { @style = "color:red" })
                                 </div>
 
                                 <br />
-                                <label for="exampleInputPassword1">FILIERE</label>
+                                <label for="exampleInputPassword1">Filière</label>
                                 @Html.DropDownListFor(m => m.id_fil, ViewBag.fil as SelectList, "selectionner une filiere", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(x => x.id_fil, "veuillez entrer la filiere", new { @style = "color:red" })
 
@@ -108,7 +108,7 @@
                                 <br />
                                 <input type="file" name="file" id="file" /><br><br>
 
-                                <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary">Valider</button>
+                                <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary">S'inscrire</button>
                                 }
 
 

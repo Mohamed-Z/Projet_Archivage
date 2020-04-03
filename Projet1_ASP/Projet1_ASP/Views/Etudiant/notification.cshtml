@@ -21,11 +21,11 @@
     
     @using (Html.BeginForm())
     {
-        <div class="container p-5 m-5">
+        <div class="container p-5 m-5" align="center">
 
             <div class="row">
-                <div class="col-md-6">
-                    <h2>des groupes a rejoindre</h2>
+                <div class="col-md-6" >
+                    <h4>Vous avez été invités à rejoindre le(s) groupe(s) suivant(s):</h4>
 
 
                     @{
@@ -61,8 +61,8 @@
                                 }
 
                             </table>
-                            <button type="submit" name="valider" value="@grp" class="btn btn-primary">Valider</button>
-                            <button type="submit" name="refuser" value="@grp" class="btn btn-primary">refuser</button>
+                            <button type="submit" name="valider" value="@grp" class="btn btn-primary">Accepter</button>
+                            <button type="submit" name="refuser" value="@grp" class="btn btn-primary">Refuser</button>
 
                         }
 
