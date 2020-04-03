@@ -430,5 +430,96 @@ namespace Projet1_ASP.Controllers
             Session["groupe"] = null;
         return RedirectToAction("Connexion");
     }
+    
+    //********* Tache_Archive_Detaisl *********//
+
+        //Variable globales
+        List<Models.File> liste_fichiers = new List<Models.File>();
+        List<String> liste_types = new List<string>();
+        List<Encadrant> liste_encadrants = new List<Encadrant>();
+        List<List<Etudiant>> liste_groupes = new List<List<Etudiant>>();
+        List<int> x = new List<int>();
+
+        //Action_Archive_Details
+        public ActionResult Archive_Details()
+        {
+            //variables
+            Models.File f;
+            Encadrant e;
+            Etudiant et;
+            int id_encadrant, id_typ;
+            List<int> liste_id_etudiants = new List<int>();
+            List<Etudiant> liste_etudiants = new List<Etudiant>();
+
+
+            //code
+            //recuperation des id des groupes ou lesquelles apaprtient un etudiant pour les utiliser afin de determiner les rapports
+            //et les encaadrants
+            Etudiant etud = (Etudiant)Session["connectedStudent"];
+
+            x = (List<int>)(context.GroupeMembres.Where(g => g.id_et == etud.cne).Select(g => g.id_grp)).Cast<int>().ToList();
+            foreach (int i in x)
+            {
+                f = (Models.File)context.files.Where(p => p.groupe_Id == i).FirstOrDefault();
+                liste_fichiers.Add(f);
+                //recuperation de l'id de l'encadrants lequel encadre le groupe i
+                id_encadrant = context.groupes.Where(p => p.grp_id == i).Select(p => p.id_enc).Single().GetValueOrDefault();
+                // y = (from gr in context.groupes where gr.grp_id==1 select new {gr.id_enc}).SingleOrDefault();
+                //recuperation de l'encadrant
+                e = (Encadrant)context.encadrants.Where(l => l.Id == id_encadrant).FirstOrDefault();
+                liste_encadrants.Add(e);
+                //recuperation des id des etudiants du meme groupe
+                liste_id_etudiants = (context.GroupeMembres.Where(m => m.id_grp == i).Select(m => m.id_et)).Cast<int>().ToList();
+
+                //recuperation des etudiants 
+                foreach (int j in liste_id_etudiants)
+                {
+                    et = (Etudiant)context.etudiants.Where(n => n.cne == j).FirstOrDefault();
+                    liste_etudiants.Add(et);
+                }
+
+                liste_groupes.Add(liste_etudiants.ToList());
+
+                //liste des types
+                id_typ = context.groupes.Where(o => o.grp_id == i).Select(o => o.id_tp).Single().GetValueOrDefault();
+                liste_types.Add((String)(context.types.Where(t => t.id_type == id_typ).Select(t => t.nom_type).Single()));
+                //Vider les listes qui sont besoin 
+                liste_id_etudiants.Clear();
+                liste_etudiants.Clear();
+
+            }
+
+            //instanciation du ViewModele
+            ArchiveDetailsViewModel archive = new ArchiveDetailsViewModel
+            {
+                liste_rapports = liste_fichiers,
+                liste_encadrant = liste_encadrants,
+                liste_groupes_etudiants = liste_groupes,
+                liste_type = liste_types
+            };
+            return View(archive);
+        }
+
+        [HttpGet]
+        public ActionResult GetFile(int ID)
+        {
+
+            //Recuperer le rapport
+            Models.File file = context.files.Find(ID);
+
+            //If file exists....
+
+            MemoryStream ms = new MemoryStream(file.Content, 0, 0, true, true);
+            Response.ContentType = file.Type;
+            Response.AddHeader("content-disposition", "inline;filename=" + file.Name);
+            Response.Buffer = true;
+            Response.Clear();
+            Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
+            Response.OutputStream.Flush();
+            Response.End();
+            return new FileStreamResult(Response.OutputStream, "application/pdf");
+
+        }
+    }
  }
 }
