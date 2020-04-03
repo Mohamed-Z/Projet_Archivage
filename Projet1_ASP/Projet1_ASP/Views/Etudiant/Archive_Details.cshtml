@@ -1,0 +1,171 @@
+﻿
+@model Projet1_ASP.Models.ArchiveDetailsViewModel
+
+@{
+    ViewBag.Title = "Archive_Details";
+    Layout = "~/Views/Shared/_MonLayout.cshtml";
+
+}
+<div class="container">
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Bonjour Mohamed Zidani!</strong>
+        @{ if (Model.liste_type.Count != 0)
+            {<p> Ici vous pouvez consulter vos rapports .</p> }
+            } else {<p> OOPS !! Vous avez pas encore aucun archive .</p>}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Sujet
+                    </th>
+                    <th>
+                        Date de disposition
+                    </th>
+                    <th>
+                        Encadrant
+                    </th>
+                    <th>
+                        Groupe
+                    </th>
+                    <th>
+                        Rapport
+                    </th>
+
+                </tr>
+
+                @for (int i = 0; i < Model.liste_type.Count; i++)
+                {
+
+                    <tr>
+                        <td>
+                            @(i + 1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.liste_type[i])
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.liste_rapports[i].sujet)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.liste_rapports[i].date_disp)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.liste_encadrant[i].nom)
+                            @Html.DisplayFor(modelItem => Model.liste_encadrant[i].prenom)
+                        </td>
+                        <td>
+                            <span type="button" class="btn btn-primary badge badge-info" data-toggle="modal" data-target="#exampleModal@{@i}">
+                                Groupe @Html.DisplayFor(modelItem => Model.liste_rapports[i].groupe_Id)
+                            </span>
+                        </td>
+                        <td width="50">
+                            @{ if (Model.liste_rapports[i] != null)
+                                {
+                                    <span type="button" class="badge badge-success" data-toggle="tooltip" data-placement="top" title="@Html.DisplayFor(modelItem => Model.liste_rapports[i].description)">
+                                        Description
+                                    </span>
+                                    <span class="badge badge-warning">
+
+                                        @Html.ActionLink("Affichage", "GetFile", "Etudiant", new { Id = Model.liste_rapports[i].groupe_Id }, new { target = "_blank" })
+
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-warning">
+                                        Aucun rapport
+                                    </span>
+
+                                }
+
+                            }
+                        </td>
+                    </tr>
+                                }
+
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+                               
+<!--hhhhhhhhhh-->
+@* @using (Html.BeginForm("Add", "Etudiant",
+                        FormMethod.Post, new { id = "attachment", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+    {
+
+
+        <input type="file" name="uploadFile" id="uploadFile" />
+
+        <input type="submit" value="Upload" />
+
+    } *@
+<!--hhhhhhhhhh-->
+
+
+@{
+    for (int j = 0; j < Model.liste_groupes_etudiants.Count; j++)
+    {
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal@{@j}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"> Membres du groupe </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Cne</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Prénom</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+
+                                    foreach (var y in Model.liste_groupes_etudiants[j])
+                                    {
+                                        <tr>
+                                            <td> @y.cne </td>
+                                            <td> @y.nom </td>
+                                            <td> @y.prenom </td>
+                                        </tr>
+
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                                    }
+}
+
+
