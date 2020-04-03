@@ -71,8 +71,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControllerTests.cs" />
+    <Compile Include="ControllerTests\HomeControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ControllerTests\EtudiantControllerTests.cs" />
+    <Compile Include="ControllerTests\EncadrantControllertests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

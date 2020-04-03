@@ -37,6 +37,9 @@ namespace Projet1_ASP.Controllers
             return View();
         }
 
-        
+        public ViewResult Connexion()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

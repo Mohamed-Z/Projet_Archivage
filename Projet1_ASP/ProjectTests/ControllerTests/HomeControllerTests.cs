@@ -11,7 +11,7 @@ using Projet1_ASP.Controllers;
 namespace ProjectTests
 {
     [TestClass]
-    public class ControllerTests
+    public class HomeControllerTests
     {
         [TestMethod]
         public void Index()
@@ -27,5 +27,7 @@ namespace ProjectTests
             //Assert
             Assert.IsNotNull(result);
         }
+
+
     }
 }
