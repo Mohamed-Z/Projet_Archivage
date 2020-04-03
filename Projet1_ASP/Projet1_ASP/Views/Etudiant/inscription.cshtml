@@ -12,7 +12,18 @@
 
 <!-- ======= Header ======= -->
 @model Projet1_ASP.Models.Etudiant
+<head>
+   
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.min.css" />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+
+</head>
 <section id="etudiant" class="about">
     <div style="margin-left: auto;margin-right: auto">
         <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto;background-image: url('Content/img/slide/slide-1.jpg');">
@@ -52,45 +63,57 @@
 
                 <div class="form-group">
                     <label for="exampleInputPassword1">date de naissance</label>
-                    @Html.TextBoxFor(m => m.date_naiss, new { @class = "form-control", @placeholder = "Entrer date naissance" })
-                    @Html.ValidationMessageFor(x => x.date_naiss, "", new { @style = "color:red" })
+                    <div class="container">
+                        <div class="row">
+                            
+                                <div class="input-group date" data-provide="datepicker">
+                                    @Html.TextBoxFor(m => m.date_naiss, new { @class = "form-control", @placeholder = "Entrer date naissance" })
+                                    @Html.ValidationMessageFor(x => x.date_naiss, "", new { @style = "color:red" })
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
                 </div>
 
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    @Html.PasswordFor(m => m.password, new { @class = "form-control", @placeholder = "Password" })
-                    @Html.ValidationMessageFor(x => x.password, "", new { @style = "color:red" })
-                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    @Html.PasswordFor(m => m.password, new { @class = "form-control", @placeholder = "Password" })
+                                    @Html.ValidationMessageFor(x => x.password, "", new { @style = "color:red" })
+                                </div>
 
-                <div class="form-group">
-                    <label for="exampleInputPassword1">confirmation</label>
-                    @Html.PasswordFor(m => m.confirmation, new { @class = "form-control", @placeholder = "Password" })
-                    @Html.ValidationMessageFor(x => x.confirmation, "", new { @style = "color:red" })
-                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">confirmation</label>
+                                    @Html.PasswordFor(m => m.confirmation, new { @class = "form-control", @placeholder = "Password" })
+                                    @Html.ValidationMessageFor(x => x.confirmation, "", new { @style = "color:red" })
+                                </div>
 
-                <br />
-                <label for="exampleInputPassword1">FILIERE</label>
-                @Html.DropDownListFor(m => m.id_fil, ViewBag.fil as SelectList, "selectionner une filiere", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.id_fil, "veuillez entrer la filiere", new { @style = "color:red" })
+                                <br />
+                                <label for="exampleInputPassword1">FILIERE</label>
+                                @Html.DropDownListFor(m => m.id_fil, ViewBag.fil as SelectList, "selectionner une filiere", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.id_fil, "veuillez entrer la filiere", new { @style = "color:red" })
 
-                <br />
+                                <br />
 
-                <label for="exampleInputPassword1">Cycle</label>
-                @Html.DropDownListFor(m => m.id_cyc, ViewBag.cycle as SelectList, "selectionner un cycle", new { id = "s", @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.id_cyc, "veuillez entrer le cycle", new { @style = "color:red" })
-                <br />
-                <label for="exampleInputPassword1">Niveau</label>
-                @Html.DropDownListFor(m => m.id_niv, Enumerable.Empty<SelectListItem>(), "selectionner un niveau", new { id = "c", @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.id_niv, "veuillez entrer le niveau", new { @style = "color:red" })
-                <br />
-                <input type="file" name="file" id="file" /><br><br>
+                                <label for="exampleInputPassword1">Cycle</label>
+                                @Html.DropDownListFor(m => m.id_cyc, ViewBag.cycle as SelectList, "selectionner un cycle", new { id = "s", @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.id_cyc, "veuillez entrer le cycle", new { @style = "color:red" })
+                                <br />
+                                <label for="exampleInputPassword1">Niveau</label>
+                                @Html.DropDownListFor(m => m.id_niv, Enumerable.Empty<SelectListItem>(), "selectionner un niveau", new { id = "c", @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.id_niv, "veuillez entrer le niveau", new { @style = "color:red" })
+                                <br />
+                                <input type="file" name="file" id="file" /><br><br>
 
-                <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary">Valider</button>
-            }
+                                <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary">Valider</button>
+                                }
 
 
-        </div>
-    </div>
+                            </div>
+                        </div>
 </section>
 
 
@@ -115,5 +138,24 @@
                 })
         });
     });
+    $(document).ready(function () {
+        $.get("/Etudiant/Js",
+            {
+                h: $("#s").val()
+            }, function (data) {
+                $("#c").empty();
+                $.each(data, function (index, ligne) {
+                    $("#c").append("<option value=" + ligne.id_Niveau + ">" + ligne.nom_Niveau + "</option>")
+                    $a = ligne.id_Niveau
+                });
+                /* $("#c").empty();
+                  $("#c").append("<option>noura</option>")*/
 
+            })
+    });
+    $(function () {
+        $('.datepicker').datepicker({
+            format: 'mm/dd/yyyy',
+        });
+    });
 </script>

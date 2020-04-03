@@ -5,9 +5,7 @@
 
 
 }
-@ViewBag.file
 
-@ViewBag.erreur
 @Scripts.Render("~/bundles/jquery")
 
 
@@ -16,111 +14,118 @@
 
 
 <!-- ======= razoor ======= -->
+<div class="container border mb-2 p-3 border">
 
-
-    <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto">
-
-        @Html.ActionLink("Groupes", "Groupes", "Etudiant", new { @class = "btn btn-success" })
-
-    </div>
-       
-
-<div style="height:400px;width:400px ;background-color:lightblue ;margin-right:auto;margin-left:auto">
-    
-    @{
-        var base64 = Convert.ToBase64String(@Model.photo);
-        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-    }
-
-    <img src="@imgSrc" style="height:400px;width:400px" />
-
-</div>
-<section id="etudiant" class="about">
-    <div>
+    <div class="row border-bottom m-1">
+        @Html.Partial("_GroupeNavBar")
 
     </div>
-    <div style="margin-left: auto;margin-right: auto">
-        <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto;background-image: url('Content/img/slide/slide-1.jpg');">
 
-            @using (Html.BeginForm("inscription", "Etudiant", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                <div class="form-group">
-                    <label for="exampleInputPassword1">CNE</label>
-                    @Html.TextBoxFor(m => m.cne, new { @class = "form-control", @placeholder = @Model.cne, @disabled = "disabled" })
+    <div style="color:red">
+        @ViewBag.file
 
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Nom</label>
-                    @Html.TextBoxFor(m => m.nom, new { @class = "form-control", @placeholder = @Model.nom , @disabled = "disabled" })
-
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputPassword1">PRENOM</label>
-                    @Html.TextBoxFor(m => m.prenom, new { @class = "form-control", @placeholder = @Model.prenom , @disabled = "disabled" })
-
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">email</label>
-                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = @Model.email, @disabled = "disabled" })
-
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div>
+        @ViewBag.erreur
+    </div>
+   
 
 
+    <div style="height:400px;width:400px ;background-color:lightblue ;margin-right:auto;margin-left:auto">
 
-                <div class="form-group">
-                    <label for="exampleInputPassword1">date de naissance</label>
-                    @Html.TextBoxFor(m => m.date_naiss, new { @class = "form-control", @placeholder = @Model.date_naiss, @disabled = "disabled" })
+        @{
+            var base64 = Convert.ToBase64String(@Model.photo);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
 
-                </div>
+        <img src="@imgSrc" style="height:400px;width:400px" />
 
-                <br />
-                <label for="exampleInputPassword1">FILIERE</label>
-                @Html.TextBoxFor(x => x.Filiere.Nom_filiere, new { @class = "form-control", @placeholder = @Model.Filiere.Nom_filiere, @disabled = "disabled" })
-
-                <br />
-                <label for="exampleInputPassword1">CYCLE</label>
-                @Html.TextBoxFor(x => x.Cycle.nom_Cycle, new { @class = "form-control", @placeholder = @Model.Cycle.nom_Cycle, @disabled = "disabled" })
-
-                <br />
-                <label for="exampleInputPassword1"></label>
-                @Html.TextBoxFor(x => x.Niveau.nom_Niveau, new { @class = "form-control", @placeholder = @Model.Niveau.nom_Niveau, @disabled = "disabled" })
-
-
-
-                <br />
-
-            }
-
+    </div>
+    <section id="etudiant" class="about">
+        <div>
 
         </div>
-    </div>
-</section>
-<script>
-    $a = 0;
-    $(document).ready(function () {
-        $("#s").on("change", function () {
-            //var text = "lalala";
-            $.get("/Etudiant/Js",
+        <div style="margin-left: auto;margin-right: auto">
+            <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto;background-image: url('Content/img/slide/slide-1.jpg');">
+
+                @using (Html.BeginForm("inscription", "Etudiant", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    h: $("#s").val()
-                }, function (data) {
-                    $("#c").empty();
-                    $.each(data, function (index, ligne) {
-                        $("#c").append("<option value=" + ligne.id_Niveau + ">" + ligne.nom_Niveau + "</option>")
-                        $a = ligne.id_Niveau
-                    });
-                    /* $("#c").empty();
-                      $("#c").append("<option>noura</option>")*/
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">CNE</label>
+                        @Html.TextBoxFor(m => m.cne, new { @class = "form-control", @placeholder = @Model.cne, @disabled = "disabled" })
 
-                })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Nom</label>
+                        @Html.TextBoxFor(m => m.nom, new { @class = "form-control", @placeholder = @Model.nom, @disabled = "disabled" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">PRENOM</label>
+                        @Html.TextBoxFor(m => m.prenom, new { @class = "form-control", @placeholder = @Model.prenom, @disabled = "disabled" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">email</label>
+                        @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = @Model.email, @disabled = "disabled" })
+
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">date de naissance</label>
+                        @Html.TextBoxFor(m => m.date_naiss, new { @class = "form-control", @placeholder = @Model.date_naiss, @disabled = "disabled" })
+
+                    </div>
+
+                    <br />
+                    <label for="exampleInputPassword1">FILIERE</label>
+                    @Html.TextBoxFor(x => x.Filiere.Nom_filiere, new { @class = "form-control", @placeholder = @Model.Filiere.Nom_filiere, @disabled = "disabled" })
+
+                    <br />
+                    <label for="exampleInputPassword1">CYCLE</label>
+                    @Html.TextBoxFor(x => x.Cycle.nom_Cycle, new { @class = "form-control", @placeholder = @Model.Cycle.nom_Cycle, @disabled = "disabled" })
+
+                    <br />
+                    <label for="exampleInputPassword1"></label>
+                    @Html.TextBoxFor(x => x.Niveau.nom_Niveau, new { @class = "form-control", @placeholder = @Model.Niveau.nom_Niveau, @disabled = "disabled" })
+
+
+
+                    <br />
+
+                }
+
+
+            </div>
+        </div>
+    </section>
+    <script>
+        $a = 0;
+        $(document).ready(function () {
+            $("#s").on("change", function () {
+                //var text = "lalala";
+                $.get("/Etudiant/Js",
+                    {
+                        h: $("#s").val()
+                    }, function (data) {
+                        $("#c").empty();
+                        $.each(data, function (index, ligne) {
+                            $("#c").append("<option value=" + ligne.id_Niveau + ">" + ligne.nom_Niveau + "</option>")
+                            $a = ligne.id_Niveau
+                        });
+                        /* $("#c").empty();
+                          $("#c").append("<option>noura</option>")*/
+
+                    })
+            });
         });
-    });
 
-</script>
-
+    </script>
 
 
+
+    </div>

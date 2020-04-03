@@ -1,71 +1,62 @@
-﻿@model Projet1_ASP.Models.File
+﻿
 @{
-    ViewBag.Title = "Archiver";
+    /**/
+
+    ViewBag.Title = "archiver";
     Layout = "~/Views/Shared/_MonLayout.cshtml";
-    ViewData["Type"] = ViewBag.Type;
-   
+
+
 }
 
-    <div class="container border mb-2 p-3 border">
 
-        <div class="row border-bottom m-1">
-            @Html.Partial("_AdminNavBar")
+@Scripts.Render("~/bundles/jquery")
 
-        </div>
 
-        <div class="row justify-content-center mt-2 p-2">
+<!-- ======= Header ======= -->
+@model Projet1_ASP.Models.File
 
-            <div class="col-md-8">
-                @using (Html.BeginForm("Archiver/", "Etudiant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+<div class="container border mb-2 p-3 border">
+
+    <div class="row border-bottom m-1">
+        @Html.Partial("_GroupeNavBar")
+
+    </div>
+
+    <section id="etudiant" class="about">
+        <div style="margin-left: auto;margin-right: auto">
+            <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto;background-image: url('Content/img/slide/slide-1.jpg');">
+                <div style="color:red">
+                    @ViewBag.fil
+                    @ViewBag.accord
+                </div>
+                <br />
+                @using (Html.BeginForm("archiver",
+                            "Etudiant",
+                            FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
                 {
-
                     <div class="form-group">
-                        <label class="control-label col-md-2">Type</label>
-                        <div class="col-md-8">
-                            @Html.DropDownList("Type", ViewData["Type"] as List<SelectListItem>, new { id = "type" })
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.sujet, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.sujet, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.sujet, "", new { @class = "text-danger" })
-                        </div>
+                        <label for="exampleInputPassword1">CNE</label>
+                        @Html.TextBoxFor(m => m.description, new { @class = "form-control", @placeholder = "Cne" })
+                        @Html.ValidationMessageFor(x => x.description, "", new { @style = "color:red" })
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-8">
-                            <input type="file" name="Content2" class="form-control-file" required />
-                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-                        </div>
+                        <label for="exampleInputPassword1">Nom</label>
+                        @Html.TextBoxFor(m => m.sujet, new { @class = "form-control", @placeholder = "Nom" })
+                        @Html.ValidationMessageFor(x => x.sujet, "", new { @style = "color:red" })
                     </div>
 
+                    <br />
+                    <input type="file" name="file" id="file" /><br><br>
 
-
-                    <div class="form-group">
-                        <div class="col-md-10 text-center">
-                            <input type="submit" value="Confirmer" class="btn btn-primary" />
-                        </div>
-                    </div>
-
-
+                    <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary">Valider</button>
                 }
+
+
             </div>
-
-
-
-
         </div>
+    </section>
 
     </div>
 
