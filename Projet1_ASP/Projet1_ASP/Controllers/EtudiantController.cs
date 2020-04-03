@@ -520,6 +520,6 @@ namespace Projet1_ASP.Controllers
             return new FileStreamResult(Response.OutputStream, "application/pdf");
 
         }
-    }
+    
  }
 }
