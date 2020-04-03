@@ -29,7 +29,7 @@ namespace Projet1_ASP.Controllers
                 if (i.email == email && i.password == password)
                 {
                     Session["id"] = i.Id;
-
+                    Session["alert"] = true;
                     return RedirectToAction("EspaceEncadrant");
                 }
             }
@@ -111,8 +111,11 @@ namespace Projet1_ASP.Controllers
                 List<Etudiant> list_etudiant = new List<Etudiant>();
                 foreach (GroupeMembre gm in list_gm)
                 {
-                    Etudiant etudiant = db.etudiants.Find(gm.id_et);
-                    list_etudiant.Add(etudiant);
+                    if (gm.confirmed != false)
+                    {
+                        Etudiant etudiant = db.etudiants.Find(gm.id_et);
+                        list_etudiant.Add(etudiant);
+                    }
                 }
                 list_type.Add(groupe.Type.nom_type);
                 list_grp_id.Add(groupe.grp_id);

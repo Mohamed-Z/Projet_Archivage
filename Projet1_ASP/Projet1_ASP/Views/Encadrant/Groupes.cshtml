@@ -1,63 +1,41 @@
 ﻿
 
 @{
-    ViewBag.Title = "Espace Encadrant";
-    Layout = "~/Views/Shared/_MonLayout.cshtml";
+    ViewBag.Title = "Liste de groupes";
+    Layout = "~/Views/Shared/_EncadrantLayout.cshtml";
 }
-<link href="~/Content/css/Style2.css" rel="stylesheet" />
 
-<section id="contact" class="contact minita" style="padding:10px;">
-    <div class="container">
+<div class="col-lg-9 d-flex align-items-stretch wd " data-aos="fade-up">
+    <div class="info-box" style="padding:0;">
+        <section class="about-lists">
+            <div class="container">
 
-        <div class="row">
-
-            <div class="col-lg-3 d-flex align-items-stretch wd" data-aos="fade-up">
-                <div class="info-box">
-                    <div class="sidenav">
-                        <a href="~/Encadrant/Modifier">
-                            @Model.prenom @Model.nom
-                        </a>
-                        <a href="~/Encadrant/Deconnexion">Déconnexion</a>
-                        <a href="~/Encadrant/Groupes">Liste de Groupes</a>
-                        <a href="~/Encadrant/EspaceEncadrant">Chercher</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-9 d-flex align-items-stretch wd " data-aos="fade-up">
-                <div class="info-box" style="padding:0;">
-                    <section class="about-lists">
-                        <div class="container">
-
-                            <div class="row no-gutters">
-                                @{
-                                        int inc = 0;
-                                        int index = 0;
-                                        foreach (var i in ViewBag.listgrp)
-                                        {
-                                            <div class="col-lg-6 col-md-6 content-item" data-aos="fade-up" data-aos-delay="@inc">
-                                            <span>Groupe @ViewBag.listids[index]</span>
-                                            <h3>@ViewBag.listtps[index]</h3>
-                                            <p>@i[0].Filiere.Nom_filiere</p>
-                                            <p>@i[0].Niveau.nom_Niveau Cycle @i[0].Cycle.nom_Cycle</p>
-                                             @foreach (var j in i)
-                                               {
-                                                  <h4>@j.nom @j.prenom </h4>
-                                               }
-                                             </div>
-                                        index += 1;
-                                        inc += 100;
-                                        }
+                <div class="row no-gutters">
+                    @{
+                        int inc = 0;
+                        int index = 0;
+                        foreach (var i in ViewBag.listgrp)
+                        {
+                            <div class="col-lg-6 col-md-6 content-item" style="text-align:left" data-aos="fade-up" data-aos-delay="@inc">
+                                <span><i class="fas fa-users"></i> Groupe @ViewBag.listids[index]</span>
+                                <h3>@ViewBag.listtps[index]</h3>
+                                <p>@i[0].Filiere.Nom_filiere</p>
+                                <p>@i[0].Niveau.nom_Niveau Cycle @i[0].Cycle.nom_Cycle</p>
+                                @foreach (var j in i)
+                                {
+                                    <h4>@j.nom @j.prenom </h4>
                                 }
                             </div>
-
-                        </div>
-                    </section>
+                            index += 1;
+                            inc += 100;
+                        }
+                    }
                 </div>
+
             </div>
-        </div>
+        </section>
     </div>
-</section>
+</div>
 
 
 

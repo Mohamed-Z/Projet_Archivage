@@ -23,7 +23,9 @@
         display: block;
         border-bottom: 1px solid #818181;
         width: 90%;
+        text-align: start;
     }
+
 
         /* When you mouse over the navigation links, change their color */
         .sidenav a:hover {

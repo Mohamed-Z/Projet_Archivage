@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Encadrant";
+    Layout = "~/Views/Shared/_MonLayout.cshtml";
+}
+<link href="~/Content/css/Style2.css" rel="stylesheet" />
+<script src="~/Content/fontawesome-free-5.13.0-web/js/all.js"></script>
+
+<section id="contact" class="contact minita" style="padding:10px;">
+    <div class="container">
+
+        @{ if (Session["alert"].Equals(true))
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Vous êtes connecté en tant que <strong>@Model.prenom @Model.nom</strong>.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                Session["alert"] = false;
+            }
+        }
+
+
+        <div class="row">
+
+            <div class="col-lg-3 d-flex align-items-stretch wd" data-aos="fade-up">
+                <div class="info-box">
+                    <div class="sidenav">
+                        <a href="~/Encadrant/Modifier">
+                            <i class="far fa-user-circle"></i>
+                            @Model.prenom @Model.nom
+                        </a>
+                        <a href="~/Encadrant/Deconnexion">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Déconnexion
+                        </a>
+                        <a href="~/Encadrant/Groupes">
+                            <i class="fas fa-users"></i>
+                            Liste de Groupes
+                        </a>
+                        <a href="~/Encadrant/EspaceEncadrant">
+                            <i class="fas fa-search"></i>
+                            Chercher
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            @RenderBody()
+        </div>
+    </div>
+</section>
+
+
