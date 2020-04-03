@@ -14,11 +14,7 @@ namespace Projet1_ASP
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 
-            routes.MapRoute(
-             name: "Etudiant",
-             url: "Etudiant",
-             defaults: new { controller = "Etudiant", action = "espaceetudiant", id = UrlParameter.Optional }
-           );
+         
 
             routes.MapRoute(
                 name: "Default",
