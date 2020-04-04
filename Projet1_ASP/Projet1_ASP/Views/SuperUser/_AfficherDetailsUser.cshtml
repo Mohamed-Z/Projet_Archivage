@@ -1,0 +1,61 @@
+﻿<table class="table table-striped" style="font-size:12px">
+<thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Encadrant</th>
+        <th scope="col">Groupe</th>
+        <th scope="col">Niveau</th>
+        <th scope="col">Filiere</th>
+        <th scope="col">Type</th>
+        <th scope="col">Sujet</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date de disposition</th>
+        <th scope="col">Rapport</th>
+    </tr>
+</thead>
+<tbody>
+    @{
+        int i = 0;
+        foreach (var line in Model.listr)
+        {
+            string str = "Get?id=" + @Model.listr[i];
+        <tr>
+            <th scope="row">@(i + 1)</th>
+            <td>@Model.listenc[i]</td>
+            <td>
+                <ul>
+                    @foreach (var j in Model.liste[i])
+                    {
+                        <li>@j.nom @j.prenom</li>
+                    }
+                </ul>
+            </td>
+            <td>@Model.listn[i]</td>
+            <td>@Model.listf[i]</td>
+            <td>@Model.listt[i]</td>
+            <td>@Model.lists[i]</td>
+            <td>@Model.listd[i]</td>
+            <td>@Model.listdt[i]</td>
+
+            <td>
+                @if (Model.listbool[i])
+                {
+                    <button type="button" class="btn btn-success">
+                        <a href=@str title="Ouvrir fichier PDF" style="font-size:10px;color:white">Voir</a>
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-warning" style="font-size:10px;color:white">Pas de rapport</button>
+                }
+
+            </td>
+        </tr>
+
+            i++;
+        }
+    }
+
+
+</tbody>
+</table>
