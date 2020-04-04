@@ -126,6 +126,7 @@
     <Compile Include="Controllers\EncadrantController.cs" />
     <Compile Include="Controllers\EtudiantController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SuperUserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -144,6 +145,7 @@
     <Compile Include="Models\GroupeMembre.cs" />
     <Compile Include="Models\Niveau.cs" />
     <Compile Include="Models\SearchModel.cs" />
+    <Compile Include="Models\SearchModelUser.cs" />
     <Compile Include="Models\SiteContext.cs" />
     <Compile Include="Models\SuperUser.cs" />
     <Compile Include="Models\Type.cs" />
@@ -1955,6 +1957,12 @@
     <Content Include="Views\Etudiant\Archive_Details.cshtml" />
     <Content Include="Views\Shared\_EncadrantLayout.cshtml" />
     <Content Include="Views\Encadrant\_AfficherDetails.cshtml" />
+    <Content Include="Views\SuperUser\Connexion.cshtml" />
+    <Content Include="Views\SuperUser\Inscription.cshtml" />
+    <Content Include="Views\Shared\_SuperUserLayout.cshtml" />
+    <Content Include="Views\SuperUser\Modifier.cshtml" />
+    <Content Include="Views\SuperUser\EspaceSuperUser.cshtml" />
+    <Content Include="Views\SuperUser\_AfficherDetailsUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

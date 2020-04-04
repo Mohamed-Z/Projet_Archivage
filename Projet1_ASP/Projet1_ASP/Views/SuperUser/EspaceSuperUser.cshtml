@@ -1,0 +1,42 @@
+﻿
+
+@{
+    ViewBag.Title = "Espace Super User";
+    Layout = "~/Views/Shared/_SuperUserLayout.cshtml";
+}
+
+<div class="col-lg-9 d-flex align-items-stretch wd " data-aos="fade-up">
+    <div class="info-box" style="padding:0;">
+        @using (Ajax.BeginForm("AfficherDetailsUser", "SuperUser", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "espace_search", InsertionMode = InsertionMode.Replace }))
+        {
+            <nav class="navbar navbar-dark bg-dark navbar-expand justify-content-between">
+
+                <div class="justify-content-between d-inline-flex col-6">
+                    <input name="search" class="form-control mr-sm-2" type="search" placeholder="Taper votre recherche ici" aria-label="Chercher">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Chercher</button>
+                </div>
+                <div class="d-inline-flex justify-content-between col-4">
+
+                    <select id="inputState" name="rech" class="custom-select col-12">
+                        <option selected disabled value="">Rechercher par</option>
+                        <option value="etudiant">Etudiant</option>
+                        <option value="encadrant">Encadrant</option>
+                        <option value="sujet">Sujet</option>
+                        <option value="description">Description</option>
+                        <option value="filiere">Filiere</option>
+                        <option value="type">Type</option>
+                    </select>
+                </div>
+            </nav>
+        }
+
+        <div id="espace_search">
+            <div id="div1">
+                <p><i class="fas fa-search"></i></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

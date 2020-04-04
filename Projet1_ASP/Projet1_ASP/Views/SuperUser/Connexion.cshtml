@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_MonLayout.cshtml";
+
+}
+
+
+<section id="encadrant" class="about" style="padding:10px;">
+    <div class="container">
+
+        <div class="row no-gutters">
+            <div class="col-lg-6 video-box">
+                <img src="Content/img/ENSA.jpg" class="img-fluid" alt="">
+                <a href="https://www.youtube.com/watch?v=MCXg6gWM9Zw" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+            </div>
+
+            <div class="col-lg-6 d-flex flex-column justify-content-center about-content">
+
+                <span class="section-title">
+                    <h2>Espace Super User</h2>
+
+
+                    @using (Html.BeginForm())
+                    {
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            @Html.TextBox("email", null, new { @class = "form-control " + ViewBag.erreur, @placeholder = "Email" })
+
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Mot de passe</label>
+                            @Html.Password("password", null, new { @class = "form-control " + ViewBag.erreur, @placeholder = "Mot de passe" })
+                        </div>
+                        <button type="submit" name="seconnecter" value="superuser" class="btn btn-primary">Valider</button>
+                    }
+                    <br />
+
+                    @Html.ActionLink("s'inscrire", "Inscription", "SuperUser")
+                    </br>
+                    <span style="color:red">
+                        @ViewBag.msg
+                    </span>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+    </div>
+</section>

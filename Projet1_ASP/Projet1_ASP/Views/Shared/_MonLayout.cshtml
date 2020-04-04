@@ -71,7 +71,7 @@
                     <li><a href="~/#portfolio">Portfolio</a></li>
                     <li><a href="~/#team">Team</a></li>
 
-                    @{ if (Session["id"] == null && Session["connectedStudent"] == null)
+                    @{ if (Session["id"] == null && Session["connectedStudent"] == null && Session["id_sup"] == null)
                         {
                             <li class="drop-down">
                                 <a href="">Espace intranet</a>
@@ -90,6 +90,13 @@
                                             <li><a href="~/Encadrant/Inscription">Inscription</a></li>
                                         </ul>
                                     </li>
+                                    <li class="drop-down">
+                                        <a href="#">Super User</a>
+                                        <ul>
+                                            <li><a href="~/SuperUser/Connexion">Connexion</a></li>
+                                            <li><a href="~/SuperUser/Inscription">Inscription</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
                         }
@@ -99,14 +106,19 @@
                                 <a href="~/Encadrant/EspaceEncadrant">Espace Encadrant</a>
                             </li>
                         }
+                        else if (Session["id_sup"] != null)
+                        {
+                            <li>
+                                <a href="~/SuperUser/EspaceSuperUser">Espace Super User</a>
+                            </li>
+                        }
                         else
                         {
-                          
 
                             <li class="drop-down">
                                 <a href="">Espace etudiant</a>
                             </li>
- }
+                        }
                     }
 
 

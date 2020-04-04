@@ -1,0 +1,53 @@
+﻿@model Projet1_ASP.Models.SuperUser
+
+@{
+    ViewBag.Title = "Modifier Super User";
+    Layout = "~/Views/Shared/_SuperUserLayout.cshtml";
+
+}
+
+<div class="col-lg-9 d-flex  wd  justify-content-center" data-aos="fade-up">
+    <div class="info-box d-flex justify-content-center" style="padding:15px;">
+        <div class="section-title  col-lg-9">
+            <h2>Modifier</h2>
+
+
+            @using (Html.BeginForm())
+            {
+                <div class="form-group">
+                    <label for="exampleInputNom">Nom</label>
+                    @Html.TextBoxFor(x => x.nom, Model.nom, new { @class = "form-control", @placeholder = "Entrer Nom" })
+                    @Html.ValidationMessageFor(x => x.nom, "", new { @style = "color:red" })
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPrenom">Prenom</label>
+                    @Html.TextBoxFor(x => x.prenom, Model.prenom, new { @class = "form-control", @placeholder = "Entrer Prenom" })
+                    @Html.ValidationMessageFor(x => x.prenom, "", new { @style = "color:red" })
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    @Html.TextBoxFor(x => x.email, Model.email, new { @class = "form-control", @placeholder = "Entrer Email" })
+                    @Html.ValidationMessageFor(x => x.email, "", new { @style = "color:red" })
+                </div>
+                <br />
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleInputPassword1">Mot de passe</label>
+                        @Html.PasswordFor(x => x.password, new { @class = "form-control", @placeholder = "Mot de passe", @value = Model.password })
+                        @Html.ValidationMessageFor(x => x.password, "", new { @style = "color:red" })
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleInputPassword2">Confirmer le mot de passe</label>
+                        @Html.PasswordFor(x => x.confirmation, new { @class = "form-control", @placeholder = "Confirmer le mot de passe", @value = Model.confirmation })
+                        @Html.ValidationMessageFor(x => x.confirmation, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <button type="submit" name="modifier" value="superuser" class="btn btn-primary">Valider les modifications</button>
+            }
+            <br />
+
+        </div>
+    </div>
+</div>
+
