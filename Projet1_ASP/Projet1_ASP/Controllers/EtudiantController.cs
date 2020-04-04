@@ -402,6 +402,7 @@ namespace Projet1_ASP.Controllers
         [HttpPost]
         public ActionResult notification(string k)
         {
+            string rqsterreur = "";
             Etudiant et = (Etudiant)Session["connectedStudent"];
             ViewBag.erreur = "";
             if (Request.Form["valider"] != null)
@@ -414,8 +415,9 @@ namespace Projet1_ASP.Controllers
                 {
                     if (req.Groupe.Type.id_type == thatsone.Type.id_type && req.confirmed == true)
                     {
-                        ViewBag.erreur = "vous avez deja confirmer ce type de projet veuillez refuser ";
-                        return View("notification");
+                        ViewBag.erreur = "meme si vous valider notre systeme fait un refus automatique parceque vous etes deja inscrit dans ce genre de groupe ";
+                        rqsterreur = Request.Form["valider"];
+                      //  return View("notification");
 
                     }
                 }
@@ -432,7 +434,13 @@ namespace Projet1_ASP.Controllers
                 context.SaveChanges();
                 return View("notification");
             }
-
+            if(rqsterreur!="") {
+                int idgrouperefuser = Convert.ToInt32(rqsterreur);
+                GroupeMembre mustdelet = context.GroupeMembres.SingleOrDefault(x => x.id_grp == idgrouperefuser && x.id_et == et.cne);
+                context.GroupeMembres.Remove(mustdelet);
+                context.SaveChanges();
+                return View("notification");
+            }
 
             return View();
         }
