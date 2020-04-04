@@ -62,7 +62,8 @@ namespace Projet1_ASP.Controllers
                 ViewBag.niv = Request.Form["niveau"];
                 return View("inscription");
             }
-
+            
+           //e.password=Convert.ToString( HashPassword(e.password));
 
             if (file != null && file.ContentLength > 0)
                 try
@@ -315,14 +316,20 @@ namespace Projet1_ASP.Controllers
 
             var list = context.GroupeMembres.Where(x => x.id_grp == grp.grp_id).ToList();
             ViewBag.e = new SelectList(context.etudiants.Where(x => x.Filiere.Id_filiere == et.id_fil && x.id_cyc == et.id_cyc && x.id_niv == et.id_niv), "cne", "nom");
+            GroupeMembre truetothisgroupe = grp.GroupeMembres.SingleOrDefault(x => x.id_et == et.cne && x.confirmed == true);
+            if (truetothisgroupe!=null)
+            {
+                return View(list);
+            }
 
-            return View(list);
+            return View("Crrer_Groupe");
 
         }
 
 
         public ActionResult Crrer_Groupe(Groupe g)
         {
+            
             ViewBag.type = new SelectList(context.types, "id_type", "nom_type");
             return View();
         }
@@ -568,5 +575,24 @@ namespace Projet1_ASP.Controllers
 
         }
 
+    //hashagepassword
+public static string HashPassword(string password)
+{
+    byte[] salt;
+    byte[] buffer2;
+    if (password == null)
+    {
+        throw new ArgumentNullException("password");
+    }
+    using (System.Security.Cryptography.Rfc2898DeriveBytes bytes = new System.Security.Cryptography.Rfc2898DeriveBytes(password, 0x10, 0x3e8))
+    {
+        salt = bytes.Salt;
+        buffer2 = bytes.GetBytes(0x20);
+    }
+    byte[] dst = new byte[0x31];
+    Buffer.BlockCopy(salt, 0, dst, 1, 0x10);
+    Buffer.BlockCopy(buffer2, 0, dst, 0x11, 0x20);
+    return Convert.ToBase64String(dst);
+}
     }
 }
