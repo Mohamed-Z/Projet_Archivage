@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Projet1_ASP.Models.GroupeMembre>
 @{
-    ViewBag.Title = "InviterGroupe";
+    ViewBag.Title = "Création de Groupe";
     Layout = "~/Views/Shared/_MonLayout.cshtml";
 }
 
@@ -9,18 +9,18 @@
     <div class="row border-bottom m-1">
         @Html.Partial("_GroupeNavBar")
 
-    </div>
+    </div><br />
 
-
-    <div class="container p-5 m-5">
+    <h2 align="center">Créer votre groupe</h2><br />
+    <div class="container p-3 m-2">
 
         <div class="row">
             <div class="col-md-6">
-                <h2>Etudiants de ce groupe</h2>
+                <h5 align="center">Etudiants de ce groupe</h5>
                 <table class="table table-striped">
                     <tr>
                         <th>Nom</th>
-                        <th>Prenom</th>
+                        <th>Prénom</th>
                         <th>Etat</th>
                     </tr>
 
@@ -36,14 +36,19 @@
             </div>
             <div class="col-md-6">
 
-                <h3>Inviter des etudiants</h3>
+                <h5 align="center">Inviter des étudiants</h5>
                 @Html.DropDownList("invitedEtudiant", ViewBag.e as SelectList, new { @class = "form-control" })
                 <br />
-                <button class="btn btn-primary form-control" id="add" name="x" value="ajouter">Ajouter</button>
-                @Html.ActionLink("archiver", "Archiver", "etudiant")
+                <div align="center">
+                    <button class="btn btn-primary" id="add" name="x" value="ajouter">Inviter</button>
+                </div>
             </div>
-        </div>
 
+        </div><br /><br />
+        <small>N.B: vous ne pouvez déposer un projet jusqu'à ce que tous les membres invités ont accepté leur demande d'invitation et seulement une fois .</small><br /><br />
+        <div align="center" style="border:double">
+            @Html.ActionLink("Archiver un projet", "Archiver", "etudiant")
+        </div>
     </div>
 
 
@@ -58,7 +63,7 @@
                         case 'full': alert("groupe plein"); break;
                         case 'deja': alert("Etdiant exist deja dans le groupe"); break;
                         case 'added': alert("Etudiant ajouter avec succes"); location.reload();break;
-                        case 'autregroupe': alert("vous pouvez pas ajouter cette personne parcequ'elle a deja accepter d'entrer a un groupe");
+                        case 'autregroupe': alert("vous pouvez pas ajouter cette personne parcequ'elle est deja acceptée d'entrer a un groupe");
                             location.reload();
                             break;
                     }

@@ -17,15 +17,15 @@
     <div style="color:red">
         @ViewBag.erreur
        
-       </div>
-    
+       </div><br /><br />
+    <h5 align="center">Vous étes invités à rejoindre les groupes suivants, vous pouvez accepter ou refuser de rejoindre.</h5>
     @using (Html.BeginForm())
     {
-        <div class="container p-5 m-5">
+        <div class="container p-5 m-5" align="center">
 
             <div class="row">
                 <div class="col-md-6">
-                    <h2>des groupes a rejoindre</h2>
+                    
 
 
                     @{
@@ -61,8 +61,8 @@
                                 }
 
                             </table>
-                            <button type="submit" name="valider" value="@grp" class="btn btn-primary">Valider</button>
-                            <button type="submit" name="refuser" value="@grp" class="btn btn-primary">refuser</button>
+                            <button type="submit" name="valider" value="@grp" class="btn btn-primary form-check">Accepter</button>
+                            <button type="submit" name="refuser" value="@grp" class="btn btn-primary form-check">Refuser</button>
 
                         }
 

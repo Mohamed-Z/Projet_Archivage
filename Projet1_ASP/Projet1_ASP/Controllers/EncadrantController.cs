@@ -11,7 +11,9 @@ namespace Projet1_ASP.Controllers
     public class EncadrantController : Controller
     {
         SiteContext db = new SiteContext();
+        
 
+        #region Authentification
         [HttpGet]
         public ActionResult Connexion()
         {
@@ -39,6 +41,10 @@ namespace Projet1_ASP.Controllers
             return View();
         }
 
+        #endregion
+
+
+        #region Inscription
         [HttpGet]
         public ActionResult Inscription()
         {
@@ -60,6 +66,10 @@ namespace Projet1_ASP.Controllers
             return View();
         }
 
+        #endregion
+
+
+        #region Espace Encadrant
         public ActionResult EspaceEncadrant()
         {
             int id = Convert.ToInt32(Session["id"]);
@@ -72,7 +82,11 @@ namespace Projet1_ASP.Controllers
             Session["id"] = null;
             return RedirectToAction("Connexion");
         }
+        #endregion
 
+
+
+        #region Modification des données
         [HttpGet]
         public ActionResult Modifier()
         {
@@ -99,6 +113,10 @@ namespace Projet1_ASP.Controllers
             return View(e);
         }
 
+        #endregion
+
+
+        #region Groupes
         public ActionResult Groupes()
         {
             int id = Convert.ToInt32(Session["id"]);
@@ -129,6 +147,10 @@ namespace Projet1_ASP.Controllers
             return View(encadrant);
         }
 
+        #endregion
+
+
+        #region Details
         public PartialViewResult AfficherDetails()
         {
             string word = Request.Form["search"];
@@ -183,5 +205,7 @@ namespace Projet1_ASP.Controllers
             return new FileStreamResult(Response.OutputStream, "application/pdf");
 
         }
+
+        #endregion
     }
 }

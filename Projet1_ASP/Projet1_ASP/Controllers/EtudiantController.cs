@@ -22,11 +22,12 @@ namespace Projet1_ASP.Controllers
                     new SelectListItem{ Text="Stage d'application", Value = "Stage d'application" },
                 };
 
-
+       
         // GET: Etudiant
         SiteContext context = new SiteContext();
 
 
+        #region Inscription Etudiant
         // inscription 
         public ActionResult inscription()
         {
@@ -54,9 +55,6 @@ namespace Projet1_ASP.Controllers
         public ActionResult inscription(Etudiant e, HttpPostedFileBase file)
         {
 
-
-
-
             if (ModelState.IsValid == false)
             {
                 ViewBag.fil = new SelectList(context.filieres, "Id_filiere", "Nom_filiere");
@@ -64,7 +62,8 @@ namespace Projet1_ASP.Controllers
                 ViewBag.niv = Request.Form["niveau"];
                 return View("inscription");
             }
-
+            
+           //e.password=Convert.ToString( HashPassword(e.password));
 
             if (file != null && file.ContentLength > 0)
                 try
@@ -87,17 +86,15 @@ namespace Projet1_ASP.Controllers
 
             context.SaveChanges();
 
-            return RedirectToAction("index", "Home", e);
+            return RedirectToAction("connexion", "etudiant", e);
 
         }
+        #endregion
 
 
 
-
+        #region Authentification Etudiant
         //connexion
-
-
-
 
         public ActionResult connexion()
         {
@@ -126,6 +123,11 @@ namespace Projet1_ASP.Controllers
             return View();
         }
 
+        #endregion
+
+
+
+        #region Espace Etudiant
         //espace etudiant 
         [HttpGet]
         public ActionResult espaceetudiant(Etudiant x)
@@ -136,8 +138,6 @@ namespace Projet1_ASP.Controllers
             ViewBag.fil = new SelectList(context.filieres, "Id_filiere", "Nom_filiere");
             ViewBag.cycle = new SelectList(context.cycles, "id_Cycle", "nom_Cycle");
             //  ViewBag.type = new SelectList(context.types, "id_type", "nom_type");
-
-
 
             return View(x);
 
@@ -177,6 +177,8 @@ namespace Projet1_ASP.Controllers
 
             //sinon
             Groupe g = new Groupe();
+            
+
             Random rnd = new Random();
             var list = context.encadrants.ToList();
             int r = rnd.Next(list.Count);
@@ -185,22 +187,30 @@ namespace Projet1_ASP.Controllers
             context.encadrants.SingleOrDefault(x => x.Id == g.id_enc).nbr_grp = g.grp_id;
             context.groupes.Add(g);
             Session["groupe"] = g;
+            DateTime localDate = DateTime.Now;
+            GroupeMembre createur = new GroupeMembre
+            {
+                id_et = e.cne,
+                id_grp = g.grp_id,
+
+                date = Convert.ToString(localDate),
+                confirmed = true,
+
+            };
 
 
-
-            /*  GroupeMembre groupemembre = new GroupeMembre();
-              groupemembre.id_grp = g.grp_id;
-              groupemembre.id_et = e.cne;
-              DateTime localDate = DateTime.Now;
-              groupemembre.date = Convert.ToString(localDate);
-              context.GroupeMembres.Add(groupemembre);*/
+            context.GroupeMembres.Add(createur);
+          
             context.SaveChanges();
 
             return RedirectToAction("inviterGroupe");
 
         }
+        #endregion
 
 
+
+        #region Archiver
         // a traiter 
 
         public ActionResult Archiver()
@@ -228,7 +238,7 @@ namespace Projet1_ASP.Controllers
             {
                 if (k.confirmed == false)
                 {
-                    ViewBag.accord = "veuillez verifier que tous les membre sont accepter ou refuser de rejoindrer le groupe";
+                    ViewBag.accord = "Veuillez verifier que tous les membres ont accepté de rejoindrer votre groupe";
                     return View("archiver");
 
                 }
@@ -258,18 +268,19 @@ namespace Projet1_ASP.Controllers
                     {
                         archive.groupe_Id = grp.grp_id;
                         archive.Type = grp.Type.nom_type;
+                        archive.date_disp = DateTime.Now.ToString();
                         context.files.Add(archive);
                         context.SaveChanges();
 
 
-                        ViewBag.file = "votre file est chargé avec succées";
+                        ViewBag.file = "Votre rapport a été déposé avec succées";
                         return View("espaceetudiant", et);
                     }
 
 
                     if (grp == null)
                     {
-                        ViewBag.file = "vous n avez pas le droit vous etes pas un admin";
+                        ViewBag.file = "vous n avez pas le droit/vous n'étes pas un admin";
                         return View("Archiver", et);
                     }
 
@@ -277,7 +288,7 @@ namespace Projet1_ASP.Controllers
 
                     else
                     {
-                        ViewBag.file = "vous avez le droit d instancier votre fichier qu'une seule fois";
+                        ViewBag.file = "vous n'avez le droit d instancier votre fichier qu'une seule fois";
 
                         return View("espaceetudiant", et);
 
@@ -288,19 +299,13 @@ namespace Projet1_ASP.Controllers
                 }
             }
 
-
-
-
-
-
-
-
-
-
             return View();
         }
+        #endregion
 
 
+
+        #region Création des Groupes
         [HttpGet]
         public ActionResult InviterGroupe(Groupe g)
         {
@@ -311,14 +316,20 @@ namespace Projet1_ASP.Controllers
 
             var list = context.GroupeMembres.Where(x => x.id_grp == grp.grp_id).ToList();
             ViewBag.e = new SelectList(context.etudiants.Where(x => x.Filiere.Id_filiere == et.id_fil && x.id_cyc == et.id_cyc && x.id_niv == et.id_niv), "cne", "nom");
+            GroupeMembre truetothisgroupe = grp.GroupeMembres.SingleOrDefault(x => x.id_et == et.cne && x.confirmed == true);
+            if (truetothisgroupe!=null)
+            {
+                return View(list);
+            }
 
-            return View(list);
+            return View("Crrer_Groupe");
 
         }
 
 
         public ActionResult Crrer_Groupe(Groupe g)
         {
+            
             ViewBag.type = new SelectList(context.types, "id_type", "nom_type");
             return View();
         }
@@ -382,7 +393,11 @@ namespace Projet1_ASP.Controllers
             return Json("deja", JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
+        
 
+
+        #region Notifications des Invitations
         public ActionResult notification()
         {
             ViewBag.erreur = "";
@@ -394,6 +409,7 @@ namespace Projet1_ASP.Controllers
         [HttpPost]
         public ActionResult notification(string k)
         {
+            string rqsterreur = "";
             Etudiant et = (Etudiant)Session["connectedStudent"];
             ViewBag.erreur = "";
             if (Request.Form["valider"] != null)
@@ -406,8 +422,9 @@ namespace Projet1_ASP.Controllers
                 {
                     if (req.Groupe.Type.id_type == thatsone.Type.id_type && req.confirmed == true)
                     {
-                        ViewBag.erreur = "vous avez deja confirmer ce type de projet veuillez refuser ";
-                        return View("notification");
+                        ViewBag.erreur = "meme si vous valider notre systeme fait un refus automatique parceque vous etes deja inscrit dans ce genre de groupe ";
+                        rqsterreur = Request.Form["valider"];
+                      //  return View("notification");
 
                     }
                 }
@@ -424,10 +441,22 @@ namespace Projet1_ASP.Controllers
                 context.SaveChanges();
                 return View("notification");
             }
-
+            if(rqsterreur!="") {
+                int idgrouperefuser = Convert.ToInt32(rqsterreur);
+                GroupeMembre mustdelet = context.GroupeMembres.SingleOrDefault(x => x.id_grp == idgrouperefuser && x.id_et == et.cne);
+                context.GroupeMembres.Remove(mustdelet);
+                context.SaveChanges();
+                return View("notification");
+            }
 
             return View();
         }
+
+        #endregion
+
+
+
+
         //information
         public ActionResult byget()
         {
@@ -435,6 +464,10 @@ namespace Projet1_ASP.Controllers
             Etudiant x = (Etudiant)Session["connectedStudent"];
             return View("espaceetudiant", x);
         }
+
+
+
+        #region Deconnexion
         //deconnexion
         public ActionResult Deconnexion()
         {
@@ -443,7 +476,10 @@ namespace Projet1_ASP.Controllers
             return RedirectToAction("Connexion");
         }
 
-        //********* Tache_Archive_Detaisl *********//
+        #endregion
+
+
+        #region Détails des Archives
 
         //Variable globales
         List<Models.File> liste_fichiers = new List<Models.File>();
@@ -468,7 +504,9 @@ namespace Projet1_ASP.Controllers
             //recuperation des id des groupes ou lesquelles apaprtient un etudiant pour les utiliser afin de determiner les rapports
             //et les encaadrants
             Etudiant etud = (Etudiant)Session["connectedStudent"];
-
+            ViewData["nom"] = etud.nom;
+            ViewData["prenom"] = etud.prenom;
+            
             x = (List<int>)(context.GroupeMembres.Where(g => g.id_et == etud.cne).Select(g => g.id_grp)).Cast<int>().ToList();
             foreach (int i in x)
             {
@@ -512,18 +550,22 @@ namespace Projet1_ASP.Controllers
             return View(archive);
         }
 
+        #endregion
+
+
+
+        //Action pour recuperer le rapport de le BD
         [HttpGet]
         public ActionResult GetFile(int ID)
         {
-
-            //Recuperer le rapport
+            
             Models.File file = context.files.Find(ID);
 
             //If file exists....
 
             MemoryStream ms = new MemoryStream(file.Content, 0, 0, true, true);
             Response.ContentType = file.Type;
-            Response.AddHeader("content-disposition", "inline;filename=" + file.Name);
+            Response.AddHeader("content-disposition", "attachment;filename=" + file.Name);
             Response.Buffer = true;
             Response.Clear();
             Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
@@ -533,5 +575,24 @@ namespace Projet1_ASP.Controllers
 
         }
 
+    //hashagepassword
+public static string HashPassword(string password)
+{
+    byte[] salt;
+    byte[] buffer2;
+    if (password == null)
+    {
+        throw new ArgumentNullException("password");
+    }
+    using (System.Security.Cryptography.Rfc2898DeriveBytes bytes = new System.Security.Cryptography.Rfc2898DeriveBytes(password, 0x10, 0x3e8))
+    {
+        salt = bytes.Salt;
+        buffer2 = bytes.GetBytes(0x20);
+    }
+    byte[] dst = new byte[0x31];
+    Buffer.BlockCopy(salt, 0, dst, 1, 0x10);
+    Buffer.BlockCopy(buffer2, 0, dst, 0x11, 0x20);
+    return Convert.ToBase64String(dst);
+}
     }
 }

@@ -1785,8 +1785,8 @@
     <Content Include="Content\fontawesome-free-5.13.0-web\webfonts\fa-regular-400.svg" />
     <Content Include="Content\fontawesome-free-5.13.0-web\webfonts\fa-solid-900.svg" />
     <Content Include="Content\img\about.jpg" />
-    <Content Include="Content\img\apple-touch-icon.png" />
-    <Content Include="Content\img\favicon.png" />
+    <Content Include="Content\img\apple-touch-iconz.png" />
+    <Content Include="Content\img\favicon1.png" />
     <Content Include="Content\img\portfolio\portfolio-1.jpg" />
     <Content Include="Content\img\portfolio\portfolio-2.jpg" />
     <Content Include="Content\img\portfolio\portfolio-3.jpg" />
@@ -1803,6 +1803,7 @@
     <Content Include="Content\img\team\team-2.jpg" />
     <Content Include="Content\img\team\team-3.jpg" />
     <Content Include="Content\img\team\team-4.jpg" />
+    <Content Include="Content\img\team\team-6.jpg" />
     <Content Include="Content\img\user.png" />
     <Content Include="Content\js\main.js" />
     <Content Include="Content\style.css" />

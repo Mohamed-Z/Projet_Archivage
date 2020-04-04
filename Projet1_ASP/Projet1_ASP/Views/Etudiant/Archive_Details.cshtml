@@ -2,7 +2,7 @@
 @model Projet1_ASP.Models.ArchiveDetailsViewModel
 
 @{
-    ViewBag.Title = "Archive_Details";
+    ViewBag.Title = "Votre Archive";
     Layout = "~/Views/Shared/_MonLayout.cshtml";
 
 }
@@ -14,10 +14,10 @@
     </div>
     <div class="container">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Bonjour Mohamed Zidani!</strong>
+            <strong>Bienvenue @ViewData["prenom"] @ViewData["nom"] !</strong>
             @{ if (Model.liste_type.Count != 0)
-                {<p> Ici vous pouvez consulter vos rapports .</p> }
-             else {<p> OOPS !! Vous avez pas encore aucun archive .</p>} }
+                {<p> Vous pouvez consulter vos rapports ici.</p> }
+             else {<p> OOPS !! Vous n'avez aucun archive pour le moment.</p>} }
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -28,22 +28,22 @@
                     <tr>
                         <th>#</th>
                         <th>
-                            Type
+                            <i class="fas fa-folder-open"></i> Type
                         </th>
                         <th>
-                            Sujet
+                            <i class="fas fa-pen-square"></i> Sujet
                         </th>
                         <th>
-                            Date de disposition
+                            <i class="fas fa-calendar-alt"></i> Déposition
                         </th>
                         <th>
-                            Encadrant
+                            <i class="fas fa-user-tie"></i> Encadrant
                         </th>
                         <th>
-                            Groupe
+                            <i class="fas fa-users"></i> Groupe
                         </th>
                         <th>
-                            Rapport
+                            <i class="fas fa-file-pdf"></i> Rapport
                         </th>
                     </tr>
                     @for (int i = 0; i < Model.liste_type.Count; i++)
@@ -75,9 +75,11 @@
                                 @{ if (Model.liste_rapports[i] != null)
                                     {
                                         <span type="button" class="badge badge-success" data-toggle="tooltip" data-placement="top" title="@Html.DisplayFor(modelItem => Model.liste_rapports[i].description)">
+                                            <i class="fas fa-file-alt"></i>
                                             Description
                                         </span>
                                         <span class="badge badge-warning">
+                                            <i class="far fa-eye"></i>
                                             @Html.ActionLink("Affichage", "GetFile", "Etudiant", new { Id = Model.liste_rapports[i].groupe_Id }, new { target = "_blank" })
                                         </span>
                                     }
@@ -99,18 +101,6 @@
         </div>
     </div>
 
-    <!--hhhhhhhhhh-->
-    @* @using (Html.BeginForm("Add", "Etudiant",
-                            FormMethod.Post, new { id = "attachment", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
-        {
-
-
-            <input type="file" name="uploadFile" id="uploadFile" />
-
-            <input type="submit" value="Upload" />
-
-        } *@
-    <!--hhhhhhhhhh-->
 
     @{
         for (int j = 0; j < Model.liste_groupes_etudiants.Count; j++)
@@ -160,3 +150,10 @@
     }
 
     </div>
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+<script src="~/Content/fontawesome-free-5.13.0-web/js/all.js"></script>

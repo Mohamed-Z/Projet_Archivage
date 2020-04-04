@@ -1,24 +1,27 @@
 ﻿
 @{
-    ViewBag.Title = "Crrer_Groupe";
+    ViewBag.Title = "Création de Groupe";
     Layout = "~/Views/Shared/_MonLayout.cshtml";
 }
-<div class="container border mb-2 p-3 border">
+    <div class="container border mb-2 p-3 border">
 
-    <div class="row border-bottom m-1">
-        @Html.Partial("_GroupeNavBar")
+        <div class="row border-bottom m-1">
+            @Html.Partial("_GroupeNavBar")
+
+        </div><br />
+        <h3 align="center">Archivage d'un projet</h3><br /><br />
+        <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto">
+            <h6 style="color:red">veuillez consulter votre notification tous d'abord si vous etes inviter a rejoindre un groupe sinon creer votre propre groupe ou consulter le groupe que vous avez confirmer </h6>
+            @using (Html.BeginForm("espaceetudiant", "Etudiant", FormMethod.Post))
+            {
+                <label>Tout d'abord, Choisissez le type de votre projet.</label>
+                @Html.DropDownList("type", ViewBag.type as SelectList, "selectionner le type de projet ", new { @class = "form-control" })<br /><br />
+                <div align="center">
+                    <button style="margin-left: auto;margin-right: auto" type="submit" name="creation" value="etudiant" class="btn btn-primary">Créer un groupe/ Ajouter des membres/ archiver votre fichier</button>
+
+                </div>
+            }
+        </div>
+        <br>
 
     </div>
-
-    <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto">
-        @using (Html.BeginForm("espaceetudiant", "Etudiant", FormMethod.Post))
-        {
-            <label for="exampleInputPassword1">Choisisez le type de votre projet</label>
-            @Html.DropDownList("type", ViewBag.type as SelectList, "selectionner un type ", new { @class = "form-control" })
-            <button style="margin-left: auto;margin-right: auto" type="submit" name="creation" value="etudiant" class="btn btn-primary">creer un groupe/archiver/ajouter des membre</button>
-        }
-    </div>
-    <div class="float-right">instruction:<br/>
-        </div><br>
-
-</div>

@@ -12,7 +12,7 @@
         @{ if (Session["alert"].Equals(true))
             {
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Vous êtes connecté en tant que <strong>@Model.prenom @Model.nom</strong>.
+                    Bienvenue <strong>@Model.prenom @Model.nom</strong>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -29,19 +29,20 @@
                     <div class="sidenav">
                         <a href="~/Encadrant/Modifier">
                             <i class="far fa-user-circle"></i>
-                            @Model.prenom @Model.nom
+                            Modifier vos données
                         </a>
-                        <a href="~/Encadrant/Deconnexion">
-                            <i class="fas fa-sign-out-alt"></i>
-                            Déconnexion
-                        </a>
+
                         <a href="~/Encadrant/Groupes">
                             <i class="fas fa-users"></i>
-                            Liste de Groupes
+                            Liste des Groupes
                         </a>
                         <a href="~/Encadrant/EspaceEncadrant">
                             <i class="fas fa-search"></i>
                             Chercher
+                        </a>
+                        <a href="~/Encadrant/Deconnexion">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Déconnexion
                         </a>
                     </div>
                 </div>

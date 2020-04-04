@@ -2,7 +2,7 @@
 @{
     /**/
 
-    ViewBag.Title = "archiver";
+    ViewBag.Title = "Informations Projet";
     Layout = "~/Views/Shared/_MonLayout.cshtml";
 
 
@@ -25,32 +25,44 @@
     <section id="etudiant" class="about">
         <div style="margin-left: auto;margin-right: auto">
             <div class="col-lg-6 d-flex flex-column justify-content-center about-content" style="margin-left: auto;margin-right: auto;background-image: url('Content/img/slide/slide-1.jpg');">
-                <div style="color:red">
+                <h2 align="center">Informations relatives au projet</h2>
+                <p class="alert">
                     @ViewBag.fil
+                </p>
+                <p class="alert">
                     @ViewBag.accord
-                </div>
+                </p>
                 <br />
+
                 @using (Html.BeginForm("archiver",
                             "Etudiant",
                             FormMethod.Post,
                             new { enctype = "multipart/form-data" }))
                 {
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">CNE</label>
-                        @Html.TextBoxFor(m => m.description, new { @class = "form-control", @placeholder = "Cne" })
-                        @Html.ValidationMessageFor(x => x.description, "", new { @style = "color:red" })
-                    </div>
 
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Nom</label>
-                        @Html.TextBoxFor(m => m.sujet, new { @class = "form-control", @placeholder = "Nom" })
+                        <label for="Nom">Sujet</label>
+                        @Html.TextBoxFor(m => m.sujet, new { @class = "form-control", @placeholder = "Sujet" })
                         @Html.ValidationMessageFor(x => x.sujet, "", new { @style = "color:red" })
                     </div>
 
-                    <br />
-                    <input type="file" name="file" id="file" /><br><br>
+                    <div class="form-group">
+                        <label for="Cne">Description du projet</label>
+                        @Html.TextAreaFor(m => m.description, new { @class = "form-control", @placeholder = "Description" })
+                        @Html.ValidationMessageFor(x => x.description, "", new { @style = "color:red" })
+                    </div>
 
-                    <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary">Valider</button>
+
+
+                    <br />
+                    <div>
+                        <label>Choisissez le fichier de votre projet</label>
+                        <input type="file" name="file" id="file" /><br><br>
+
+                    </div>
+
+
+                    <button type="submit" name="seconnecter" value="etudiant" class="btn btn-primary form-control">Déposer votre projet</button>
                 }
 
 
