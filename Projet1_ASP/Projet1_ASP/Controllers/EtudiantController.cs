@@ -85,7 +85,7 @@ namespace Projet1_ASP.Controllers
 
             context.SaveChanges();
 
-            return RedirectToAction("index", "Home", e);
+            return RedirectToAction("connexion", "etudiant", e);
 
         }
         #endregion
