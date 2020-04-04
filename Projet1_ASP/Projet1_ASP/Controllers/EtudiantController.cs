@@ -564,8 +564,8 @@ namespace Projet1_ASP.Controllers
             //If file exists....
 
             MemoryStream ms = new MemoryStream(file.Content, 0, 0, true, true);
-            Response.ContentType = file.Type;
-            Response.AddHeader("content-disposition", "attachment;filename=" + file.Name);
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "inline;filename=" + file.Name);
             Response.Buffer = true;
             Response.Clear();
             Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
