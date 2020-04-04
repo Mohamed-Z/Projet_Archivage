@@ -176,6 +176,8 @@ namespace Projet1_ASP.Controllers
 
             //sinon
             Groupe g = new Groupe();
+            
+
             Random rnd = new Random();
             var list = context.encadrants.ToList();
             int r = rnd.Next(list.Count);
@@ -184,15 +186,20 @@ namespace Projet1_ASP.Controllers
             context.encadrants.SingleOrDefault(x => x.Id == g.id_enc).nbr_grp = g.grp_id;
             context.groupes.Add(g);
             Session["groupe"] = g;
+            DateTime localDate = DateTime.Now;
+            GroupeMembre createur = new GroupeMembre
+            {
+                id_et = e.cne,
+                id_grp = g.grp_id,
+
+                date = Convert.ToString(localDate),
+                confirmed = true,
+
+            };
 
 
-
-            /*  GroupeMembre groupemembre = new GroupeMembre();
-              groupemembre.id_grp = g.grp_id;
-              groupemembre.id_et = e.cne;
-              DateTime localDate = DateTime.Now;
-              groupemembre.date = Convert.ToString(localDate);
-              context.GroupeMembres.Add(groupemembre);*/
+            context.GroupeMembres.Add(createur);
+          
             context.SaveChanges();
 
             return RedirectToAction("inviterGroupe");
