@@ -143,7 +143,7 @@ namespace Projet1_ASP.Controllers
 
         }
         [HttpPost]
-        public ActionResult espaceetudiant()
+        public ActionResult Crrer_Groupe()
         {
 
             ViewBag.erreur = "";
@@ -151,7 +151,8 @@ namespace Projet1_ASP.Controllers
             ViewBag.file = "";
 
             ViewBag.type = new SelectList(context.types, "id_type", "nom_type");
-
+            int idselected = Convert.ToInt32(Request.Form["type"]);
+            Session["type"] = context.types.SingleOrDefault(x => x.id_type == idselected).nom_type;
             Etudiant e = (Etudiant)Session["connectedStudent"];
             //if vous avez deja initialiser un groupe de ce type
             var groupedetudiant = context.GroupeMembres.Where(x => x.id_et == e.cne);
@@ -176,6 +177,8 @@ namespace Projet1_ASP.Controllers
             }
 
             //sinon
+            //jamais initialiser ce genre de 
+
             Groupe g = new Groupe();
             
 
@@ -197,6 +200,7 @@ namespace Projet1_ASP.Controllers
                 confirmed = true,
 
             };
+            
 
 
             context.GroupeMembres.Add(createur);
@@ -262,13 +266,14 @@ namespace Projet1_ASP.Controllers
                     archive.Length = file.ContentLength;
 
 
-
+                    string type= (string)Session["type"];
 
                     if (existfile == null)
                     {
+                        DateTime localDate = DateTime.Now;
                         archive.groupe_Id = grp.grp_id;
-                        archive.Type = grp.Type.nom_type;
-                        archive.date_disp = DateTime.Now.ToString();
+                        archive.Type = type;
+                        archive.date_disp = Convert.ToString(localDate);
                         context.files.Add(archive);
                         context.SaveChanges();
 
@@ -309,7 +314,10 @@ namespace Projet1_ASP.Controllers
         [HttpGet]
         public ActionResult InviterGroupe(Groupe g)
         {
-
+            if (!string.IsNullOrEmpty(Session["groupe"] as string))
+            {
+                return RedirectToAction("Crrer_Groupe");
+            }
 
             Etudiant et = (Etudiant)Session["connectedStudent"];
             Groupe grp = (Groupe)Session["groupe"];
@@ -329,7 +337,7 @@ namespace Projet1_ASP.Controllers
 
         public ActionResult Crrer_Groupe(Groupe g)
         {
-            
+            Session["groupe"] = null;
             ViewBag.type = new SelectList(context.types, "id_type", "nom_type");
             return View();
         }
@@ -418,6 +426,7 @@ namespace Projet1_ASP.Controllers
                 int idgroupevalider = Convert.ToInt32(Request.Form["valider"]);
                 Groupe thatsone = context.groupes.SingleOrDefault(x => x.grp_id == idgroupevalider);
                 var allrequests = context.GroupeMembres.Where(x => x.id_et == et.cne);
+                Session["type"] = thatsone.Type.nom_type;
                 foreach (var req in allrequests)
                 {
                     if (req.Groupe.Type.id_type == thatsone.Type.id_type && req.confirmed == true)

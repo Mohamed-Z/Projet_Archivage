@@ -10,7 +10,7 @@
         @Html.Partial("_GroupeNavBar")
 
     </div><br />
-
+    @{<h2> @Session["groupe"]</h2>}
     <h2 align="center">Créer votre groupe</h2><br />
     <div class="container p-3 m-2">
 
@@ -62,7 +62,7 @@
                     switch (data) {
                         case 'full': alert("groupe plein"); break;
                         case 'deja': alert("Etdiant exist deja dans le groupe"); break;
-                        case 'added': alert("Etudiant ajouter avec succes"); location.reload();break;
+                        case 'added': alert("Etudiant ajouter avec succes"); location.reload(); break;
                         case 'autregroupe': alert("vous pouvez pas ajouter cette personne parcequ'elle est deja acceptée d'entrer a un groupe");
                             location.reload();
                             break;
@@ -74,4 +74,4 @@
         });
     </script>
 
-    </div>
+</div>
