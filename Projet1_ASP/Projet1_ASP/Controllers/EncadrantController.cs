@@ -11,7 +11,7 @@ namespace Projet1_ASP.Controllers
     public class EncadrantController : Controller
     {
         SiteContext db = new SiteContext();
-        
+
 
         #region Authentification
         [HttpGet]
@@ -25,6 +25,16 @@ namespace Projet1_ASP.Controllers
         [HttpPost]
         public ActionResult Connexion(string email, string password)
         {
+            var super = db.superUsers.Where(y => y.email == email && y.password == password);
+            foreach (SuperUser s in super)
+            {
+                if (s.email == email && s.password == password)
+                {
+                    Session["id_sup"] = s.Id;
+                    Session["alerts"] = true;
+                    return RedirectToAction("connexion","SuperUser");
+                }
+            }
             var x = db.encadrants.ToList();
 
             foreach (var i in x)
@@ -43,7 +53,7 @@ namespace Projet1_ASP.Controllers
 
         #endregion
 
-
+        //super suer ne s' inscrit pas il fait l inscription par bd
         #region Inscription
         [HttpGet]
         public ActionResult Inscription()
@@ -59,7 +69,7 @@ namespace Projet1_ASP.Controllers
                 encadrant.nbr_grp = 0;
                 db.encadrants.Add(encadrant);
                 db.SaveChanges();
-                 Session["alert"] = true;
+                Session["alert"] = true;
                 Session["id"] = encadrant.Id;
                 return RedirectToAction("EspaceEncadrant");
             }
@@ -88,8 +98,14 @@ namespace Projet1_ASP.Controllers
 
         #region Modification des données
         [HttpGet]
-        public ActionResult Modifier()
-        {
+        public ActionResult Modifier() { 
+            //if superuser
+        if(Session["id_sup"]!=null){
+        int ids = Convert.ToInt32(Session["id_sup"]);
+        SuperUser superUser = db.superUsers.Find(ids);
+            return View("Modifier","SuperUser",superUser);
+            }
+        //if encadrant simple
             int id = Convert.ToInt32(Session["id"]);
             Encadrant encadrant = db.encadrants.Find(id);
             return View(encadrant);

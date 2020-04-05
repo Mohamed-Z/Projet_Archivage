@@ -9,7 +9,7 @@
 <section id="contact" class="contact minita" style="padding:10px;">
     <div class="container">
 
-        @{ if (Session["alert"].Equals(true))
+        @{ if (Session["alerts"].Equals(true))
             {
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     Vous êtes connecté en tant que <strong>@Model.prenom @Model.nom</strong>.
@@ -17,7 +17,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                Session["alert"] = false;
+                Session["alerts"] = false;
             }
         }
 

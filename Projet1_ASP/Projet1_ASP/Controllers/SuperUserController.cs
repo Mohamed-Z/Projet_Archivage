@@ -12,28 +12,18 @@ namespace Projet1_ASP.Controllers
     {
         SiteContext db = new SiteContext();
 
-        [HttpGet]
+       
         public ActionResult Connexion()
-        {
-            ViewBag.erreur = "";
-            ViewBag.msg = "";
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Connexion(string email, string password)
         {
             var x = db.superUsers.ToList();
 
-            foreach (var i in x)
-            {
-                if (i.email == email && i.password == password)
+           
+                if (Session["id_sup"] !=null && Session["alerts"] != null) 
                 {
-                    Session["id_sup"] = i.Id;
-                    Session["alert"] = true;
+                   
                     return RedirectToAction("EspaceSuperUser");
                 }
-            }
+            
             ViewBag.erreur = "is-invalid";
             ViewBag.msg = "Email ou mot de passe incorrect !";
             return View();
@@ -53,7 +43,7 @@ namespace Projet1_ASP.Controllers
                 
                 db.superUsers.Add(superUser);
                 db.SaveChanges();
-                Session["alert"] = true;
+                Session["alerts"] = true;
                 Session["id_sup"] = superUser.Id;
                 return RedirectToAction("EspaceSuperUser");
             }
