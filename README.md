@@ -1,8 +1,7 @@
 # Projet_Archivage
 ASP .NET MVC Archivage
 
-# وَجَعَلْنَا مِنۢ بَيْنِ أَيْدِيهِمْ سَدًّا وَمِنْ خَلْفِهِمْ سَدًّا فَأَغْشَيْنَٰهُمْ فَهُمْ لَا يُبْصِرُونَ
-
+  
 
 instruction
 avant de lancer le projet merci de supprimer la base de donnees et relance la migration 
